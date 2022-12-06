@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Description>Includes MessageBox with a more modern interface, InputBox, can auto-closing Prompt Window.    
+包括更现代化界面的消息框、输入框、可自动关闭的提示窗。</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\cancel.png" />
+    <None Remove="Icons\error.png" />
+    <None Remove="Icons\help.png" />
+    <None Remove="Icons\info.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Languages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\cancel.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\error.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\help.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\info.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

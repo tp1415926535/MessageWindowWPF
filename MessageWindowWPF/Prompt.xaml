@@ -1,0 +1,25 @@
+﻿<Window x:Class="MessageWindowWPF.Prompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MessageWindowWPF"
+        mc:Ignorable="d"
+        Title="Prompt" Height="76.415" Width="187.736"
+        SizeToContent="WidthAndHeight" MinHeight="60" MinWidth="100" ShowInTaskbar="False"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterOwner" MouseDoubleClick="Window_MouseDoubleClick">
+    <Window.Resources>
+        <local:InvertColorConverter x:Key="InvertColorConverter" />
+    </Window.Resources>
+    <Popup x:Name="MainPopup" AllowsTransparency="True" Placement="Center" PopupAnimation="Fade">
+        <Border x:Name="MainBorder" Background="#E5FFFFFF" BorderThickness="1" BorderBrush="LightGray" Margin="8" UseLayoutRounding="True">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="0" Opacity="0.1"/>
+            </Border.Effect>
+            <Grid>
+                <Thumb x:Name="thumb" Width="0" Height="0"/>
+                <TextBlock x:Name="MainText" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"  MaxWidth="500" Foreground="{Binding ElementName=MainBorder,Path=Background,Converter={StaticResource InvertColorConverter}}"/>
+            </Grid>
+        </Border>
+    </Popup>
+</Window>
