@@ -1,5 +1,6 @@
 # MessageWindowWPF
-Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window.   包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗。 
+Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window.      
+包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗。 
 
 
 [![release](https://img.shields.io/static/v1?label=release&message=1.0.0&color=green&logo=github)](https://github.com/tp1415926535/MessageWindowWPF/releases) 
