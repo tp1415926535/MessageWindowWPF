@@ -115,7 +115,7 @@ using MessageWindowWPF;
 The default is displayed in the current language. Alternatively, you can set it manually by changing the value of **"MessageSetting.settings.UIculture"**. 
 
 ## Version   
-* v1.0.0 2022/12/06 Basic features. 
+* v1.0.0 2022/12/07 Basic features. 
 ---
    
 # 中文说明   
