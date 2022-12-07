@@ -13,10 +13,9 @@ Includes MessageBox with a more modern interface and rich text support, InputBox
        
        
 # English Description
-## Usage   
 Download package from Nuget, or using the release Dll.   
   
-### MessageBox 
+## MessageBox 
 ![MessageBox]()       
       
 Except for the absence of the MessageBoxOptions parameter, all other features are seamlessly integrated with the original version.   
@@ -46,7 +45,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
   MessageBox.Show("Message!", "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
-### InputBox
+## InputBox
 ![InputBox]()      
 
 Input box similar to VB's component.
@@ -70,7 +69,7 @@ using MessageWindowWPF;
     Console.WriteLine(inputBox.value);
 ```
 
-### Prompt
+## Prompt
 ![Prompt]()      
 
 Fade-in and fade-out cues, support countdown and double click to close.
@@ -109,10 +108,9 @@ The default is displayed in the current language. Alternatively, you can set it 
    
 # 中文说明   
 
-## 使用   
 从Nuget下载包，或者引用release的Dll。   
   
-### 消息窗（MessageBox）
+## 消息窗（MessageBox）
 ![MessageBox]()      
 除了没有 MessageBoxOptions 参数之外，其他功能都与原版无缝衔接。     
 ```c#
@@ -141,7 +139,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
   MessageBox.Show("消息!", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
-### 输入框（InputBox）
+## 输入框（InputBox）
 ![InputBox]()      
 类似于VB组件的输入框
 ```c#
@@ -164,7 +162,7 @@ using MessageWindowWPF;
     Console.WriteLine(inputBox.value);
 ```
 
-### 提示（Prompt）
+## 提示（Prompt）
 ![Prompt]()      
 淡入和淡出的提示，支持倒计时和双击关闭。
 ```c#
