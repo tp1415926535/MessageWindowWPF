@@ -42,7 +42,48 @@ namespace MessageWindowWPF
                 MainPopup.VerticalOffset += e.VerticalChange;
             };
         }
-        public static Prompt Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
+        private void AdjustMaxWidth(int textLength)
+        {
+            if (textLength > 1900)
+            {
+                double nWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                double nHieght = System.Windows.SystemParameters.PrimaryScreenHeight;
+                double rate = nWidth / nHieght;
+
+                double maxW = 1200;
+                var h = textLength * MainText.FontSize / maxW * MainText.FontSize * 1.7 + 150;
+                while (maxW / h < rate)
+                {
+                    if (maxW + 100 >= nWidth)
+                        break;
+                    maxW += 100;
+                    h = textLength * MainText.FontSize / maxW * MainText.FontSize * 1.7 + 150;
+                }
+                MainText.MaxWidth = maxW;
+            }
+        }
+        private static void CalculateInlineLength(IEnumerable<Inline> inlines, ref int length)
+        {
+            foreach (var inline in inlines)
+            {
+                if (inline is Bold)
+                    CalculateInlineLength(((Bold)inline).Inlines, ref length);
+                else if (inline is Italic)
+                    CalculateInlineLength(((Italic)inline).Inlines, ref length);
+                else if (inline is Underline)
+                    CalculateInlineLength(((Underline)inline).Inlines, ref length);
+                else if (inline is Hyperlink)
+                    CalculateInlineLength(((Hyperlink)inline).Inlines, ref length);
+                else
+                {
+                    Run run = inline as Run;
+                    if (run == null) continue;
+                    length += run.Text.Length;
+                }
+            }
+        }
+
+        private static Prompt ShowPrompt(string content = null, IEnumerable<Inline> inlines = null, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
         {
             Prompt prompt = null;
             Application.Current.Dispatcher.Invoke((Action)(() =>
@@ -52,27 +93,22 @@ namespace MessageWindowWPF
                     prompt.timer.Interval = TimeSpan.FromSeconds(liveSeconds);
                 else
                     prompt.timer.Stop();
-                prompt.MainText.Text = content;
+
+                if (!string.IsNullOrEmpty(content))
+                    prompt.MainText.Text = content;
+                if (inlines != null)
+                    prompt.MainText.Inlines.AddRange(inlines);
 
                 if (MessageSetting.settings.WithCornerRadius)
                     prompt.MainBorder.CornerRadius = new CornerRadius(5);
-
-                if (content.Length > 1900)
+                
+                if (!string.IsNullOrEmpty(content))
+                    prompt.AdjustMaxWidth(content.Length);
+                else if (inlines != null)
                 {
-                    double nWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-                    double nHieght = System.Windows.SystemParameters.PrimaryScreenHeight;
-                    double rate = nWidth / nHieght;
-
-                    double maxW = 1200;
-                    var h = content.Length * prompt.MainText.FontSize / maxW * prompt.MainText.FontSize * 1.7 + 150;
-                    while (maxW / h < rate)
-                    {
-                        if (maxW + 100 >= nWidth)
-                            break;
-                        maxW += 100;
-                        h = content.Length * prompt.MainText.FontSize / maxW * prompt.MainText.FontSize * 1.7 + 150;
-                    }
-                    prompt.MainText.MaxWidth = maxW;
+                    int textLength = 0;
+                    CalculateInlineLength(inlines, ref textLength);
+                    prompt.AdjustMaxWidth(textLength);
                 }
 
                 if (backColor != null)
@@ -105,6 +141,16 @@ namespace MessageWindowWPF
                 prompt.Activate();
             }));
             return prompt;
+
+        }
+
+        public static Prompt Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
+        {
+            return ShowPrompt(content, null, liveSeconds, owner, point, backColor);
+        }
+        public static Prompt Show(IEnumerable<Inline> inlines, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
+        {
+            return ShowPrompt(null, inlines, liveSeconds, owner, point, backColor);
         }
 
         private async void AutoClose(object sender, EventArgs e)
