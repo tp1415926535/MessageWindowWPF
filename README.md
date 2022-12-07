@@ -123,7 +123,7 @@ The default is displayed in the current language. Alternatively, you can set it 
 从Nuget下载包，或者引用release的Dll。   
   
 ## 消息窗（MessageBox）
-![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox1.jpg)      
+![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/消息窗1.jpg)      
 除了没有 MessageBoxOptions 参数之外，其他功能都与原版无缝衔接。     
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; //添加这行即可
@@ -132,7 +132,7 @@ using MessageBox = MessageWindowWPF.MessageBox; //添加这行即可
   MessageBox.Show("消息2！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
   
-![MessageBox-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox3.jpg)     
+![MessageBox-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/消息窗3.jpg)     
 如果想要显示富文本，也只需传入参数即可:
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; 
@@ -154,7 +154,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 ```
 
 ## 输入框（InputBox）
-![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/InputBox1.jpg)      
+![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/输入框1.jpg)      
 类似于VB组件的输入框
 ```c#
 using MessageWindowWPF;
@@ -177,7 +177,7 @@ using MessageWindowWPF;
 ```
 
 ## 提示（Prompt）
-![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt1.jpg)      
+![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/提示窗1.jpg)      
 淡入和淡出的提示，支持倒计时和双击关闭。
 ```c#
 using MessageWindowWPF;
@@ -186,7 +186,7 @@ using MessageWindowWPF;
 ```
 函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。   
    
-![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt3.jpg)     
+![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/提示窗3.jpg)     
 如果想要显示富文本，也只需传入参数即可:
 ```c#
 using MessageWindowWPF;
