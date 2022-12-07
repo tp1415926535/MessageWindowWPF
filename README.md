@@ -1,8 +1,17 @@
 # MessageWindowWPF
 Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window.      
-包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗。 
-
-
+包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗。    
+   
+MessageBox:     
+![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox2.jpg)      
+    
+InputBox:     
+![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/InputBox2.jpg)     
+    
+Prompt:     
+![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt2.jpg)     
+    
+     
 [![release](https://img.shields.io/static/v1?label=release&message=1.0.0&color=green&logo=github)](https://github.com/tp1415926535/MessageWindowWPF/releases) 
 [![nuget](https://img.shields.io/static/v1?label=nuget&message=1.0.0&color=lightblue&logo=nuget)](https://www.nuget.org/packages/MessageWindowWPF) 
 [![license](https://img.shields.io/static/v1?label=license&message=MIT&color=silver)](https://github.com/tp1415926535/MessageWindowWPF/blob/master/LICENSE) 
@@ -16,7 +25,7 @@ Includes MessageBox with a more modern interface and rich text support, InputBox
 Download package from Nuget, or using the release Dll.   
   
 ## MessageBox 
-![MessageBox]()       
+![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox1.jpg)       
       
 Except for the absence of the MessageBoxOptions parameter, all other features are seamlessly integrated with the original version.   
 ```c#
@@ -25,6 +34,8 @@ using MessageBox = MessageWindowWPF.MessageBox; //Just add the namespace
   MessageBox.Show("Message!");
   MessageBox.Show("Message2!", "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
+
+![MessageBox-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox3.jpg)     
 If you want to display rich text, you can also just pass in the parameters:
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; 
@@ -46,7 +57,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 ```
 
 ## InputBox
-![InputBox]()      
+![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/InputBox1.jpg)      
 
 Input box similar to VB's component.
 ```c#
@@ -70,7 +81,7 @@ using MessageWindowWPF;
 ```
 
 ## Prompt
-![Prompt]()      
+![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt1.jpg)      
 
 Fade-in and fade-out cues, support countdown and double click to close.
 ```c#
@@ -80,6 +91,7 @@ using MessageWindowWPF;
 ```
 Function: `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`, return Window.
 
+![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt3.jpg)     
 If you want to display rich text, you can also just pass in the parameters:
 ```c#
 using MessageWindowWPF;
@@ -111,7 +123,7 @@ The default is displayed in the current language. Alternatively, you can set it 
 从Nuget下载包，或者引用release的Dll。   
   
 ## 消息窗（MessageBox）
-![MessageBox]()      
+![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox1.jpg)      
 除了没有 MessageBoxOptions 参数之外，其他功能都与原版无缝衔接。     
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; //添加这行即可
@@ -119,6 +131,8 @@ using MessageBox = MessageWindowWPF.MessageBox; //添加这行即可
   MessageBox.Show("消息！");
   MessageBox.Show("消息2！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
+  
+![MessageBox-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox3.jpg)     
 如果想要显示富文本，也只需传入参数即可:
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; 
@@ -140,7 +154,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 ```
 
 ## 输入框（InputBox）
-![InputBox]()      
+![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/InputBox1.jpg)      
 类似于VB组件的输入框
 ```c#
 using MessageWindowWPF;
@@ -163,15 +177,16 @@ using MessageWindowWPF;
 ```
 
 ## 提示（Prompt）
-![Prompt]()      
+![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt1.jpg)      
 淡入和淡出的提示，支持倒计时和双击关闭。
 ```c#
 using MessageWindowWPF;
 
   Prompt.Show("提示文字");
 ```
-函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。
-
+函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。   
+   
+![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt3.jpg)     
 如果想要显示富文本，也只需传入参数即可:
 ```c#
 using MessageWindowWPF;
