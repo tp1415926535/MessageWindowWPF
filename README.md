@@ -31,7 +31,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 
   List<Inline> inlines = new List<Inline>();
   inlines.Add(new Run("normal text. "));
-  inlines.Add(new Run("red text. ") { Foreground = Brushes.Red });
+  inlines.Add(new Run("red text.") { Foreground = Brushes.Red });
   MessageBox.Show(inlines, "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
@@ -86,7 +86,7 @@ using MessageWindowWPF;
 
   List<Inline> inlines = new List<Inline>();
   inlines.Add(new Run("normal text. "));
-  inlines.Add(new Run("red text. ") { Foreground = Brushes.Red });
+  inlines.Add(new Run("red text.") { Foreground = Brushes.Red });
   Prompt.Show(inlines);
 ```
 
@@ -126,7 +126,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 
   List<Inline> inlines = new List<Inline>();
   inlines.Add(new Run("普通文本。 "));
-  inlines.Add(new Run("红色文本。 ") { Foreground = Brushes.Red });
+  inlines.Add(new Run("红色文本。") { Foreground = Brushes.Red });
   MessageBox.Show(inlines, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
@@ -150,7 +150,7 @@ using MessageWindowWPF;
   if (inputBox.ShowDialog("输入提示：", "标题") == true)
     Console.WriteLine(inputBox.value);
 ```
-函数: `inputBox.ShowDialog(string message = null, string title = null, string defaultValue = null)`, 返回 bool?.
+函数: `inputBox.ShowDialog(string message = null, string title = null, string defaultValue = null)`， 返回 bool?。
 
 还可以自定义一些配置：
 ```c#
@@ -171,7 +171,7 @@ using MessageWindowWPF;
 
   Prompt.Show("提示文字");
 ```
-函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`, 返回提示窗体.
+函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。
 
 如果想要显示富文本，也只需传入参数即可:
 ```c#
@@ -179,7 +179,7 @@ using MessageWindowWPF;
 
   List<Inline> inlines = new List<Inline>();
   inlines.Add(new Run("普通文本。 "));
-  inlines.Add(new Run("红色文本。 ") { Foreground = Brushes.Red });
+  inlines.Add(new Run("红色文本。") { Foreground = Brushes.Red });
   Prompt.Show(inlines);
 ```
 
