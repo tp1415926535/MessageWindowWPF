@@ -89,8 +89,9 @@ using MessageWindowWPF;
 
   Prompt.Show("Show text");
 ```
-Function: `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`, return Window.
-
+Function: `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`, return Window.    
+When the parameter value of "liveSeconds" <= 0, the window will be displayed until it is closed by double-clicking.    
+     
 ![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt3.jpg)     
 If you want to display rich text, you can also just pass in the parameters:
 ```c#
@@ -184,7 +185,8 @@ using MessageWindowWPF;
 
   Prompt.Show("提示文字");
 ```
-函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。   
+函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。      
+当"liveSeconds" 的参数值<=0时，窗口将会一直显示直到双击关闭它。      
    
 ![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/提示窗3.jpg)     
 如果想要显示富文本，也只需传入参数即可:
