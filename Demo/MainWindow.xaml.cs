@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -128,7 +129,7 @@ namespace Demo
 
         private void CheckboxRadius_Checked(object sender, RoutedEventArgs e)
         {
-            var checkBox= sender as CheckBox;
+            var checkBox = sender as CheckBox;
             MessageSetting.WithCornerRadius = (bool)checkBox.IsChecked;
         }
         private void CheckboxRich_Checked(object sender, RoutedEventArgs e)
@@ -145,6 +146,7 @@ namespace Demo
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            MessageSetting.UIculture = new CultureInfo("en-US");
             //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };
         }
     }
