@@ -1,6 +1,6 @@
 # MessageWindowWPF
-Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window.      
-包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗。    
+Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window. Support to switch dark or light theme.     
+包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗。支持设置浅色/深色主题。    
    
 MessageBox:     
 ![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox2.jpg)      
@@ -10,7 +10,9 @@ InputBox:
     
 Prompt:     
 ![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt2.jpg)     
-    
+
+DarkTheme:     
+![DarkMessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/DarkTheme.jpg)
      
 [![release](https://img.shields.io/github/v/release/tp1415926535/MessageWindowWPF?color=green&logo=github)](https://github.com/tp1415926535/MessageWindowWPF/releases) 
 [![nuget](https://img.shields.io/nuget/v/MessageWindowWPF?color=lightblue&logo=nuget)](https://www.nuget.org/packages/MessageWindowWPF) 
@@ -51,8 +53,9 @@ Some configurations can also be customized:
 using MessageWindowWPF;
 using MessageBox = MessageWindowWPF.MessageBox;
 
-  MessageSetting.settings.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true; //Without system title bar, and change to rounded corners
-  MessageSetting.settings.BackGroundColor = Colors.Black;
+  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true; //Without system title bar, and change to rounded corners
+  MessageSetting.UseDarkTheme = true;//set dark or light theme. Default is light theme.
+  //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };//even control text, background and other color
   MessageBox.Show("Message!", "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
@@ -73,8 +76,9 @@ Some configurations can also be customized:
 ```c#
 using MessageWindowWPF;
 
-  MessageSetting.settings.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;
-  MessageSetting.settings.BackGroundColor = Colors.Black;
+  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;
+  MessageSetting.UseDarkTheme = true;
+  //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };
   InputBox inputBox = new InputBox();
   if (inputBox.ShowDialog("Write Something:", "Title") == true)
     Console.WriteLine(inputBox.value);
@@ -106,8 +110,8 @@ using MessageWindowWPF;
 Custom configurations only have an effect on the color, but the color parameter of the function has a higher priority:
 ```c#
 using MessageWindowWPF;
-
-  MessageSetting.settings.BackGroundColor = Colors.Black;
+  MessageSetting.UseDarkTheme = true;
+  MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };
   Prompt.Show("Show text");
 ```
 
@@ -116,6 +120,7 @@ using MessageWindowWPF;
 The default is displayed in the current language. Alternatively, you can set it manually by changing the value of **"MessageSetting.settings.UIculture"**. 
 
 ## Version   
+* V1.1.0 2022/11/06 added support for light and dark themes, simplified settings, and allowed for full customization of colors.
 * v1.0.0 2022/12/07 Basic features. 
 ---
    
@@ -149,8 +154,9 @@ using MessageBox = MessageWindowWPF.MessageBox;
 using MessageWindowWPF;
 using MessageBox = MessageWindowWPF.MessageBox;
 
-  MessageSetting.settings.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;//不使用系统标题栏，以及变为圆角
-  MessageSetting.settings.BackGroundColor = Colors.Black;
+  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;//不使用系统标题栏，以及变为圆角
+  MessageSetting.UseDarkTheme = true;//设置明暗主题。默认是亮主题
+  //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };//甚至完全自定义文本和背景等颜色
   MessageBox.Show("消息!", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
@@ -170,8 +176,8 @@ using MessageWindowWPF;
 ```c#
 using MessageWindowWPF;
 
-  MessageSetting.settings.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;
-  MessageSetting.settings.BackGroundColor = Colors.Black;
+  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;
+  MessageSetting.UseDarkTheme = true;
   InputBox inputBox = new InputBox();
   if (inputBox.ShowDialog("输入提示：", "标题") == true)
     Console.WriteLine(inputBox.value);
@@ -202,8 +208,8 @@ using MessageWindowWPF;
 自定义配置只有颜色有作用，但是调用函数的颜色参数优先级更高:
 ```c#
 using MessageWindowWPF;
-
-  MessageSetting.settings.BackGroundColor = Colors.Black;
+  MessageSetting.UseDarkTheme = true;
+  //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };
   Prompt.Show("提示文字");
 ```
 
@@ -212,4 +218,5 @@ using MessageWindowWPF;
 默认按当前语言显示，另外还可以通过改变 **MessageSetting.settings.UIculture** 的值来手动设置它。
 
 ## Version   
+* v1.1.0 2022/11/06 增加明暗主题支持，简化设置，允许完全自定义颜色。
 * v1.0.0 2022/12/07 基本功能. 
