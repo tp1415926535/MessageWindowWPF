@@ -30,18 +30,16 @@ namespace MessageWindowWPF
 
         private void SetWindowStyle()
         {
-            if (MessageSetting.settings.NoSystemHeader)
+            if (MessageSetting.NoSystemHeader)
             {
                 this.WindowStyle = WindowStyle.None;
                 this.AllowsTransparency = true;
                 MainBorder.Margin = new Thickness(12);
                 MainBorder.BorderThickness = new Thickness(1);
                 MainBorder.Effect = (System.Windows.Media.Effects.Effect)Resources["shadowEffect"];
-                if (MessageSetting.settings.WithCornerRadius)
+                if (MessageSetting.WithCornerRadius)
                     MainBorder.CornerRadius = new CornerRadius(5);
             }
-            if (MessageSetting.settings.BackGroundColor != null)
-                MainBorder.Background = new SolidColorBrush((Color)MessageSetting.settings.BackGroundColor);
         }
 
         public bool? ShowDialog(string message = null, string title = null, string defaultValue = null)

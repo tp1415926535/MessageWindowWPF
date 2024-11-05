@@ -13,7 +13,6 @@
         <RoutedUICommand x:Key="NoCommand" Text="No"/>
         <RoutedUICommand x:Key="CopyCommand" Text="Copy"/>
         <DropShadowEffect x:Key="shadowEffect" BlurRadius="12" ShadowDepth="0" Opacity="0.3"/>
-        <local:InvertColorConverter x:Key="InvertColorConverter" />
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource YesCommand}" Executed="YesCommand" />
@@ -25,7 +24,7 @@
         <KeyBinding Key="N" Command="{StaticResource NoCommand}" />
         <KeyBinding Key="C" Modifiers="Ctrl" Command="{StaticResource CopyCommand}" />
     </Window.InputBindings>
-    <Border x:Name="MainBorder" Background="White" BorderBrush="LightGray" UseLayoutRounding="True">
+    <Border x:Name="MainBorder" Background="{DynamicResource WindowBack}" BorderBrush="{DynamicResource ControlBorder}" UseLayoutRounding="True">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition>
@@ -48,14 +47,14 @@
                         <Image Source="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"/>
                     </Viewbox>
                     <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"  Height="15" 
-                                Foreground="{Binding ElementName=MainBorder,Path=Background,Converter={StaticResource InvertColorConverter}}"/>
+                                Foreground="{DynamicResource WindowText}"/>
                 </StackPanel>
-                <Button x:Name="CloseButton" HorizontalAlignment="Right" Cursor="Hand" Height="15" Width="15" Background="Transparent" BorderThickness="0" Click="CloseButton_Click" Focusable="False">
+                <Button x:Name="CloseButton" HorizontalAlignment="Right" Cursor="Hand" Height="15" Width="15" BorderThickness="0" Click="CloseButton_Click" Focusable="False">
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="HorizontalAlignment" Value="Center"/>
                             <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Background" Value="WhiteSmoke"/>
+                            <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Cursor" Value="Hand"/>
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -88,7 +87,7 @@
                     <Path Data="M0,0 1,1 M 0,1 1,0" StrokeThickness="1" Stretch="UniformToFill" Margin="2">
                         <Path.Style>
                             <Style TargetType="Path">
-                                <Setter Property="Stroke" Value="{Binding ElementName=MainBorder,Path=Background,Converter={StaticResource InvertColorConverter}}"/>
+                                <Setter Property="Stroke" Value="{DynamicResource WindowText}"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsEnabled" Value="False">
                                         <Setter Property="Stroke" Value="Silver"/>
@@ -126,14 +125,15 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <TextBlock x:Name="MessageText" Text="" VerticalAlignment="Center" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="10"
-                                    Foreground="{Binding ElementName=MainBorder,Path=Background,Converter={StaticResource InvertColorConverter}}"/>
+                                    Foreground="{DynamicResource WindowText}"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Margin="20,0" UseLayoutRounding = "True">
                     <Grid.Resources>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="WhiteSmoke"/>
-                            <Setter Property="BorderBrush" Value="Silver"/>
+                            <Setter Property="Background" Value="{DynamicResource ButtonBack}"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource ControlBorder}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource WindowText}"/>
                             <Setter Property="Height" Value="30"/>
                             <Setter Property="Width" Value="100"/>
                             <Setter Property="Margin" Value="5,0,5,18"/>
@@ -150,10 +150,10 @@
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="#e5f3ff" />
+                                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource ButtonHover}" />
                                             </Trigger>
                                             <Trigger Property="Button.IsFocused" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="#cce8ff" />
+                                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource ButtonPressed}" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>

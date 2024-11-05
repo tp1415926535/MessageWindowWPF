@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="211" Width="361" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="240" Width="361" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.Resources>
             <Style TargetType="GroupBox">
@@ -23,18 +23,19 @@
             <GroupBox Header="Settings">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="Checkbox1" Content="NoSystemHeader" Checked="Checkbox1_Checked" Unchecked="Checkbox1_Checked"/>
-                        <CheckBox x:Name="Checkbox2" Content="WithCornerRadius" Checked="Checkbox2_Checked" Unchecked="Checkbox2_Checked"/>
+                        <CheckBox x:Name="CheckboxHeader" Content="NoSystemHeader" Checked="CheckboxHeader_Checked" Unchecked="CheckboxHeader_Checked"/>
+                        <CheckBox x:Name="CheckboxRadius" Content="WithCornerRadius" Checked="CheckboxRadius_Checked" Unchecked="CheckboxRadius_Checked"/>
                     </StackPanel>
-                    <CheckBox x:Name="Checkbox3" Content="RichTextMessage" Checked="Checkbox3_Checked" Unchecked="Checkbox3_Checked"/>
-                    <CheckBox x:Name="Checkbox4" Content="Background Thread"/>
+                    <CheckBox x:Name="CheckboxTheme" Content="DarkTheme" Checked="CheckboxTheme_Checked" Unchecked="CheckboxTheme_Checked"/>
+                    <CheckBox x:Name="CheckboxRich" Content="RichTextMessage" Checked="CheckboxRich_Checked" Unchecked="CheckboxRich_Checked"/>
+                    <CheckBox x:Name="CheckboxThread" Content="Background Thread"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Test Button">
                 <UniformGrid Rows="1">
-                    <Button x:Name="MessageButton1" Content="MessageBox" Click="MessageButton1_Click"/>
-                    <Button x:Name="InputButton1" Content="InputBox" Click="InputButton1_Click"/>
-                    <Button x:Name="PromptButton1" Content="Prompt" Click="PromptButton1_Click"/>
+                    <Button x:Name="MessageButton" Content="MessageBox" Click="MessageButton_Click"/>
+                    <Button x:Name="InputButton" Content="InputBox" Click="InputButton_Click"/>
+                    <Button x:Name="PromptButton" Content="Prompt" Click="PromptButton_Click"/>
                 </UniformGrid>
             </GroupBox>
         </StackPanel>

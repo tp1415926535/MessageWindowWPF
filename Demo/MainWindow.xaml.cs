@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MessageWindowWPF;
 using MessageBox = MessageWindowWPF.MessageBox;
 
@@ -23,24 +14,20 @@ namespace Demo
     /// </summary>
     public partial class MainWindow : Window
     {
-        BackgroundWorker backgroundWorker = new BackgroundWorker();
         static int buttonIndex = 0;
-
         bool showRichText = false;
-       
+
         public MainWindow()
         {
             InitializeComponent();
-
-            backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
         }
 
-        private void ButtonEvents()
+        private void ButtonEvents(bool taskThread = false)
         {
             switch (buttonIndex)
             {
                 case 1:
-                    if(showRichText)
+                    if (showRichText)
                     {
                         List<Inline> inlines = new List<Inline>();
                         inlines.Add(new Run("normal text. "));
@@ -50,12 +37,17 @@ namespace Demo
                         MessageBox.Show(inlines, "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
-                        MessageBox.Show("Foregound Thread", "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(taskThread ? "Task Thread" : "Foregound Thread", "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 case 2:
                     InputBox inputBox = new InputBox();
                     if (inputBox.ShowDialog("Write Something:", "Title") == true)
-                        MessageBox.Show(inputBox.value);
+                    {
+                        if (!string.IsNullOrEmpty(inputBox.value))
+                            MessageBox.Show(inputBox.value);
+                        else
+                            MessageBox.Show("Nothing input!");
+                    }
                     else
                         MessageBox.Show("Cancel Input!");
                     break;
@@ -74,84 +66,86 @@ namespace Demo
                     break;
             }
         }
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            switch (buttonIndex)
-            {
-                case 1:
-                    if (showRichText)
-                        MessageBox.Show("Diffrent thread can't pass UI elements!", "Tip", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                    else
-                        MessageBox.Show("Background Thread", "Tip", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                    break;
-                case 2:
-                    App.Current.Dispatcher.Invoke((Action)(() =>
-                    {
-                        InputBox inputBox = new InputBox();
-                        if (inputBox.ShowDialog("Write Something:", "Title") == true)
-                            MessageBox.Show(inputBox.value);
-                        else
-                            MessageBox.Show("Cancel Input!");
-                    }));
-                    break;
-                case 3:
-                    if (showRichText)
-                        Prompt.Show("Diffrent thread can't pass UI elements!");
-                    else
-                        Prompt.Show("Background Thread. Double click to close it.");
-                    break;
-            }
-        }
 
-        private void MessageButton1_Click(object sender, RoutedEventArgs e)
+
+        private void MessageButton_Click(object sender, RoutedEventArgs e)
         {
             buttonIndex = 1;
-            if (Checkbox4.IsChecked == true)
+            if (CheckboxThread.IsChecked == true)
             {
-                if (backgroundWorker.IsBusy != true)
-                    backgroundWorker.RunWorkerAsync();
+                if (showRichText)
+                {
+                    MessageBox.Show("Diffrent thread can't pass UI elements!", "Tip", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                    return;
+                }
+                Task.Run(() =>
+                {
+                    ButtonEvents(true);
+                });
             }
             else
                 ButtonEvents();
         }
 
-        private void InputButton1_Click(object sender, RoutedEventArgs e)
+        private void InputButton_Click(object sender, RoutedEventArgs e)
         {
             buttonIndex = 2;
-            if (Checkbox4.IsChecked == true)
+            if (CheckboxThread.IsChecked == true)
             {
-                if (backgroundWorker.IsBusy != true)
-                    backgroundWorker.RunWorkerAsync();
+                Task.Run(() =>
+                {
+                    ButtonEvents(true);
+                });
             }
             else
                 ButtonEvents();
         }
 
-        private void PromptButton1_Click(object sender, RoutedEventArgs e)
+        private void PromptButton_Click(object sender, RoutedEventArgs e)
         {
             buttonIndex = 3;
-            if (Checkbox4.IsChecked == true)
+            if (CheckboxThread.IsChecked == true)
             {
-                if (backgroundWorker.IsBusy != true)
-                    backgroundWorker.RunWorkerAsync();
+                if (showRichText)
+                {
+                    Prompt.Show("Diffrent thread can't pass UI elements!");
+                    return;
+                }
+                Task.Run(() =>
+                {
+                    ButtonEvents(true);
+                });
             }
             else
                 ButtonEvents();
         }
 
-        private void Checkbox1_Checked(object sender, RoutedEventArgs e)
+        private void CheckboxHeader_Checked(object sender, RoutedEventArgs e)
         {
-            MessageSetting.settings.NoSystemHeader = (bool)Checkbox1.IsChecked;
+            var checkBox = sender as CheckBox;
+            MessageSetting.NoSystemHeader = (bool)checkBox.IsChecked;
         }
 
-        private void Checkbox2_Checked(object sender, RoutedEventArgs e)
+        private void CheckboxRadius_Checked(object sender, RoutedEventArgs e)
         {
-            MessageSetting.settings.WithCornerRadius = (bool)Checkbox2.IsChecked;
+            var checkBox= sender as CheckBox;
+            MessageSetting.WithCornerRadius = (bool)checkBox.IsChecked;
         }
-        private void Checkbox3_Checked(object sender, RoutedEventArgs e)
+        private void CheckboxRich_Checked(object sender, RoutedEventArgs e)
         {
-            showRichText= (bool)Checkbox3.IsChecked;
+            var checkBox = sender as CheckBox;
+            showRichText = (bool)checkBox.IsChecked;
         }
 
+        private void CheckboxTheme_Checked(object sender, RoutedEventArgs e)
+        {
+            var checkBox = sender as CheckBox;
+            MessageSetting.UseDarkTheme = (bool)checkBox.IsChecked;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };
+        }
     }
 }

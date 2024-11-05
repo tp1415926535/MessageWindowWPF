@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="WindowBack" Color="#404040" />
+    <SolidColorBrush x:Key="WindowText" Color="White" />
+    <SolidColorBrush x:Key="ControlBorder" Color="#575757" />
+    <SolidColorBrush x:Key="ButtonBack" Color="#383838"/>
+    <SolidColorBrush x:Key="ButtonHover" Color="#1886C4"/>
+    <SolidColorBrush x:Key="ButtonPressed" Color="#2A75A1"/>
+</ResourceDictionary>

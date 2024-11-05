@@ -99,7 +99,7 @@ namespace MessageWindowWPF
                 if (inlines != null)
                     prompt.MainText.Inlines.AddRange(inlines);
 
-                if (MessageSetting.settings.WithCornerRadius)
+                if (MessageSetting.WithCornerRadius)
                     prompt.MainBorder.CornerRadius = new CornerRadius(5);
                 
                 if (!string.IsNullOrEmpty(content))
@@ -116,12 +116,7 @@ namespace MessageWindowWPF
                     prompt.MainBorder.Background = new SolidColorBrush((Color)backColor);
                     prompt.MainBorder.Background.Opacity = 0.9;
                 }
-                else if (MessageSetting.settings.BackGroundColor != null)
-                {
-                    prompt.MainBorder.Background = new SolidColorBrush((Color)MessageSetting.settings.BackGroundColor);
-                    prompt.MainBorder.Background.Opacity = 0.9;
-                }
-
+                
                 if (point != null)
                 {
                     prompt.WindowStartupLocation = WindowStartupLocation.Manual;
