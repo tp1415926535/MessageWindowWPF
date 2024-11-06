@@ -30,6 +30,12 @@ Download package from Nuget, or using the release Dll.
 ![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox1.jpg)       
       
 Except for the absence of the MessageBoxOptions parameter, all other features are seamlessly integrated with the original version.   
+
+Set global using to replace all Messagebox:
+```c#
+global using MessageBox = MessageWindowWPF.MessageBox;
+```
+Or just replace in one script:
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; //Just add the namespace
 
@@ -131,6 +137,11 @@ The default is displayed in the current language. Alternatively, you can set it 
 ## 消息窗（MessageBox）
 ![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/消息窗1.jpg)      
 除了没有 MessageBoxOptions 参数之外，其他功能都与原版无缝衔接。     
+设置全局引用来替换所有的弹窗:
+```c#
+global using MessageBox = MessageWindowWPF.MessageBox;
+```
+或者只替换其中一个脚本:
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; //添加这行即可
 
