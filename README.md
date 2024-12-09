@@ -59,7 +59,7 @@ Some configurations can also be customized:
 using MessageWindowWPF;
 using MessageBox = MessageWindowWPF.MessageBox;
 
-  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true; //Without system title bar, and change to rounded corners
+  MessageSetting.NoSystemHeader = MessageSetting.WithCornerRadius = true; //Without system title bar, and change to rounded corners
   MessageSetting.UseDarkTheme = true;//set dark or light theme. Default is light theme.
   //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };//even control text, background and other color
   MessageBox.Show("Message!", "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -82,7 +82,7 @@ Some configurations can also be customized:
 ```c#
 using MessageWindowWPF;
 
-  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;
+  MessageSetting.NoSystemHeader = MessageSetting.WithCornerRadius = true;
   MessageSetting.UseDarkTheme = true;
   //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };
   InputBox inputBox = new InputBox();
@@ -165,7 +165,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 using MessageWindowWPF;
 using MessageBox = MessageWindowWPF.MessageBox;
 
-  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;//不使用系统标题栏，以及变为圆角
+  MessageSetting.NoSystemHeader = MessageSetting.WithCornerRadius = true;//不使用系统标题栏，以及变为圆角
   MessageSetting.UseDarkTheme = true;//设置明暗主题。默认是亮主题
   //MessageSetting.CustomColor = new MessageSetting.CustomColorData() { WindowText = Colors.Red };//甚至完全自定义文本和背景等颜色
   MessageBox.Show("消息!", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -187,7 +187,7 @@ using MessageWindowWPF;
 ```c#
 using MessageWindowWPF;
 
-  MessageSetting.NoSystemHeader = MessageSetting.settings.WithCornerRadius = true;
+  MessageSetting.NoSystemHeader = MessageSetting.WithCornerRadius = true;
   MessageSetting.UseDarkTheme = true;
   InputBox inputBox = new InputBox();
   if (inputBox.ShowDialog("输入提示：", "标题") == true)
