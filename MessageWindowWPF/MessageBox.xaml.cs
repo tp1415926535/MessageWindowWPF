@@ -22,7 +22,7 @@ namespace MessageWindowWPF
     public partial class MessageBox : Window
     {
         private static MessageBox customMessageBox;
-        private static MessageBoxResult result;
+        private MessageBoxResult result;
         public MessageBox()
         {
             InitializeComponent();
@@ -296,7 +296,10 @@ namespace MessageWindowWPF
 
                 customMessageBox.ShowDialog();
             }));
-            return result;
+            if (customMessageBox == null) return MessageBoxResult.None;
+            var messageResult = customMessageBox.result;
+            customMessageBox = null;
+            return messageResult;
         }
 
 
