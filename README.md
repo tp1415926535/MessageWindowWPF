@@ -126,6 +126,7 @@ using MessageWindowWPF;
 The default is displayed in the current language. Alternatively, you can set it manually by changing the value of **"MessageSetting.settings.UIculture"**. 
 
 ## Version   
+* v1.2.0 2025/03/21 Fix a static variable that causes a problem with the result of closing the window directly.
 * V1.1.0 2022/11/06 added support for light and dark themes, simplified settings, and allowed for full customization of colors.
 * v1.0.0 2022/12/07 Basic features. 
 ---
@@ -229,5 +230,6 @@ using MessageWindowWPF;
 默认按当前语言显示，另外还可以通过改变 **MessageSetting.settings.UIculture** 的值来手动设置它。
 
 ## Version   
+* v1.2.0 2025/03/21 修复静态变量导致直接关闭窗口结果有问题
 * v1.1.0 2022/11/06 增加明暗主题支持，简化设置，允许完全自定义颜色。
 * v1.0.0 2022/12/07 基本功能. 
