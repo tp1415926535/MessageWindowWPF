@@ -42,6 +42,11 @@ namespace MessageWindowWPF
         public static int ToastMaxCount { get; set; }
 
         /// <summary>
+        /// Display lastest toast at the bottom. Defualt false.
+        /// </summary>
+        public static bool ToastLatestAtBottom { get; set; }
+
+        /// <summary>
         /// customColor
         /// </summary>
         private static CustomColorData customColor;

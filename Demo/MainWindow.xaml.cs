@@ -24,7 +24,8 @@ namespace Demo
         {
             InitializeComponent();
 
-            MessageSetting.ToastMaxCount = 3;
+            //MessageSetting.ToastMaxCount = 3;
+            //MessageSetting.ToastLatestAtBottom = true;
         }
 
         private void ButtonEvents(bool taskThread = false)

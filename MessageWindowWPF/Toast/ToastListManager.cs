@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 
 namespace MessageWindowWPF
 {
@@ -30,10 +32,21 @@ namespace MessageWindowWPF
         /// <returns>return top offset</returns>
         public static double AddWindowList(ToastWindow window)
         {
-            var allHeight = windowList.Sum(x => x.Height);
-            var delta = allHeight + windowList.Count * spacing;
-            windowList.Add(window);
-            return delta;
+            if (!MessageSetting.ToastLatestAtBottom)
+            {
+                var allHeight = windowList.Sum(x => x.Height);
+                var delta = allHeight + windowList.Count * spacing;
+                windowList.Add(window);
+                return delta;
+            }
+            else
+            {
+                var height = window.Height;
+                for (int i = 0; i < windowList.Count; i++)//The subsequent window moves upwards
+                    windowList[i].Top -= height + spacing;
+                windowList.Add(window);
+                return 0;
+            }
         }
         /// <summary>
         /// Remove from list
@@ -55,9 +68,18 @@ namespace MessageWindowWPF
             windowList.RemoveAt(index);
 
             var height = window.Height;
-            if (index > windowList.Count - 1) return;
-            for (int i = index; i < windowList.Count; i++)//The subsequent window moves downwards
-                windowList[i].Top += height + spacing;
+            if (!MessageSetting.ToastLatestAtBottom)
+            {
+                if (index > windowList.Count - 1) return;
+                for (int i = index; i < windowList.Count; i++)//The subsequent window moves downwards
+                    windowList[i].Top += height + spacing;
+            }
+            else
+            {
+                if (index <= 0) return;
+                for (int i = 0; i < index; i++)//The previous window moves downwards
+                    windowList[i].Top += height + spacing;
+            }
         }
 
         /// <summary>
