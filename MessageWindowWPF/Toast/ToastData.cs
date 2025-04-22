@@ -11,6 +11,7 @@ namespace MessageWindowWPF
     /// </summary>
     public class ToastData
     {
+        #region data
         /// <summary>
         /// CreateTime
         /// </summary>
@@ -55,11 +56,19 @@ namespace MessageWindowWPF
         /// Custom audio for displaying toast
         /// </summary>
         public string CustomAudioPath { get; set; }
+        #endregion
 
+        #region config
         /// <summary>
         /// Seconds of Toast Stay，0 or negative numbers are always displayed.The default value is 7.
         /// </summary>
         public int Duration { get; set; } = 7;
+
+        /// <summary>
+        /// Whether display without playing sound
+        /// </summary>
+        public bool Mute { get; set; }
+        #endregion
     }
 
     /// <summary>

@@ -42,34 +42,37 @@ namespace MessageWindowWPF
             storyboard?.Begin(this);
 
             //Window basic setting
-            BlurHelper.SetBlur(this, true);
+            this.SetBlur(true);
             this.Top = System.Windows.SystemParameters.WorkArea.Height - this.Height - 10;
             this.Left = System.Windows.SystemParameters.WorkArea.Width - this.Width - 10;
             this.Top -= ToastListManager.AppendWindow(this);
 
             //Play sound
-            if (!string.IsNullOrEmpty(data.CustomAudioPath) && File.Exists(data.CustomAudioPath))
+            if (!data.Mute)
             {
-                try
+                if (!string.IsNullOrEmpty(data.CustomAudioPath) && File.Exists(data.CustomAudioPath))
                 {
-                    using (var player = new SoundPlayer(data.CustomAudioPath))
+                    try
                     {
-                        player.Play();
+                        using (var player = new SoundPlayer(data.CustomAudioPath))
+                        {
+                            player.Play();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message + Environment.NewLine + ex.StackTrace);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    Debug.WriteLine(ex.Message + Environment.NewLine + ex.StackTrace);
-                }
-            }
-            else
-            {
-                var wav = @"C:\Windows\Media\Windows Notify System Generic.wav";
-                if (File.Exists(wav))
-                {
-                    using (var player = new SoundPlayer(wav))
+                    var wav = @"C:\Windows\Media\Windows Notify System Generic.wav";
+                    if (File.Exists(wav))
                     {
-                        player.Play();
+                        using (var player = new SoundPlayer(wav))
+                        {
+                            player.Play();
+                        }
                     }
                 }
             }
