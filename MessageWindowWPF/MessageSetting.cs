@@ -42,9 +42,14 @@ namespace MessageWindowWPF
         public static int ToastMaxCount { get; set; }
 
         /// <summary>
-        /// Display lastest toast at the bottom. Defualt false.
+        /// Display lastest toast at the bottom. Default false.
         /// </summary>
         public static bool ToastLatestAtBottom { get; set; }
+
+        /// <summary>
+        /// Allow double click to close. Default true.
+        /// </summary>
+        public static bool ToastDoubleClickClose { get; set; } = true;
 
         /// <summary>
         /// customColor

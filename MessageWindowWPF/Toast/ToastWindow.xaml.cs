@@ -132,15 +132,27 @@ namespace MessageWindowWPF
                 item.Action?.Invoke();
             });
         }
+        /// <summary>
+        /// Double click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount != 2) return;
+            if (MessageSetting.ToastDoubleClickClose)
+                this.Close();
+        }
 
 
         /// <summary>
-        /// static method
+        /// Public static method. Recommend.
         /// </summary>
         /// <param name="data"></param>
         public static void Show(ToastData data)
         {
             ToastListManager.CreateOrWait(data);
         }
+
     }
 }

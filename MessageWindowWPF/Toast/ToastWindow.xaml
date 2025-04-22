@@ -44,7 +44,7 @@
             <Style TargetType="Path" BasedOn="{StaticResource ThemePath}"/>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
         <Border x:Name="BackBorder" Background="{DynamicResource WindowBack}" Opacity="0.7">
             <Border.Effect>
                 <DropShadowEffect Opacity="0.4" ShadowDepth="0" BlurRadius="10"/>
@@ -59,7 +59,7 @@
                         <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <TextBlock Text="{Binding Time,StringFormat='yyyy-MM-dd HH:mm:ss'}" Opacity="0.2" Margin="0,0,8,0" FontSize="11" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Time}" Opacity="0.2" Margin="0,0,8,0" FontSize="11" VerticalAlignment="Center"/>
                         <Button Click="CloseButton_Click" Style="{StaticResource ThemeIconButton}" Cursor="Hand">
                             <Path StrokeThickness="1" Stretch="Uniform" Margin="2" Opacity="0.5" Data="M0,0 1,1 M1,0 0,1"/>
                         </Button>

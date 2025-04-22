@@ -26,6 +26,7 @@ namespace Demo
 
             //MessageSetting.ToastMaxCount = 3;
             //MessageSetting.ToastLatestAtBottom = true;
+            //MessageSetting.ToastDoubleClickClose = true;
         }
 
         private void ButtonEvents(bool taskThread = false)
@@ -161,7 +162,9 @@ namespace Demo
             {
                 Title = "demo",
                 Header = "ToastTitle",
-                Icon = new BitmapImage(new Uri("/Resouces/logo.png", UriKind.RelativeOrAbsolute))
+                Icon = new BitmapImage(new Uri("/Resouces/logo.png", UriKind.RelativeOrAbsolute)),
+                //Time = string.Empty,
+                //Duration = 0
             };
             Random random = new Random();
             int randomNumber = random.Next(0, 6);

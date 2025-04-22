@@ -11,11 +11,16 @@ namespace MessageWindowWPF
     /// </summary>
     public class ToastData
     {
+        public ToastData()
+        {
+            Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
         #region data
         /// <summary>
         /// CreateTime
         /// </summary>
-        public DateTime Time { get; set; } = DateTime.Now;
+        public string Time { get; set; }
 
         /// <summary>
         /// icon
@@ -51,7 +56,7 @@ namespace MessageWindowWPF
         /// Button List
         /// </summary>
         public ObservableCollection<ButtonActionItem> Buttons { get; set; } = new ObservableCollection<ButtonActionItem>();
-        
+
         /// <summary>
         /// Custom audio for displaying toast
         /// </summary>
