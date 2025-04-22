@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="240" Width="361" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="MainWindow" Height="240" Width="450" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.Resources>
             <Style TargetType="GroupBox">
@@ -36,6 +36,7 @@
                     <Button x:Name="MessageButton" Content="MessageBox" Click="MessageButton_Click"/>
                     <Button x:Name="InputButton" Content="InputBox" Click="InputButton_Click"/>
                     <Button x:Name="PromptButton" Content="Prompt" Click="PromptButton_Click"/>
+                    <Button x:Name="ToastButton" Content="Toast" Click="ToastButton_Click"/>
                 </UniformGrid>
             </GroupBox>
         </StackPanel>

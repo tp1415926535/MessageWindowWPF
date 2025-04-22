@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="pexels-obi-onyeador.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MessageWindowWPF\MessageWindowWPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pexels-obi-onyeador.jpg" />
   </ItemGroup>
 
 </Project>
