@@ -26,8 +26,8 @@ namespace MessageWindowWPF
 
         public ToastWindow(ToastData toastData)
         {
-            InitializeComponent();
             this.DataContext = data = toastData;
+            InitializeComponent();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace MessageWindowWPF
             this.SetBlur(true);
             this.Top = System.Windows.SystemParameters.WorkArea.Height - this.Height - 10;
             this.Left = System.Windows.SystemParameters.WorkArea.Width - this.Width - 10;
-            this.Top -= ToastListManager.AppendWindow(this);
+            this.Top -= ToastListManager.AddWindowList(this);
 
             //Play sound
             if (!data.Mute)
@@ -76,13 +76,10 @@ namespace MessageWindowWPF
                     }
                 }
             }
-
             //Automatically close the window
-            if (data.Duration > 0)
-            {
-                await Task.Delay(data.Duration * 1000);
-                this.Close();
-            }
+            if (data.Duration <= 0) return;
+            await Task.Delay(data.Duration * 1000);
+            this.Close();
         }
 
         /// <summary>
@@ -134,6 +131,16 @@ namespace MessageWindowWPF
             {
                 item.Action?.Invoke();
             });
+        }
+
+
+        /// <summary>
+        /// static method
+        /// </summary>
+        /// <param name="data"></param>
+        public static void Show(ToastData data)
+        {
+            ToastListManager.CreateOrWait(data);
         }
     }
 }

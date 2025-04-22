@@ -37,10 +37,15 @@ namespace MessageWindowWPF
         public static bool WithCornerRadius { get; set; }
 
         /// <summary>
+        /// The maximum number of toasts, not limited if it is less than or equal to 0. Default 0
+        /// </summary>
+        public static int ToastMaxCount { get; set; }
+
+        /// <summary>
         /// customColor
         /// </summary>
         private static CustomColorData customColor;
-        public static CustomColorData CustomColor 
+        public static CustomColorData CustomColor
         {
             get { return customColor; }
             set

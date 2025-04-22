@@ -23,6 +23,8 @@ namespace Demo
         public MainWindow()
         {
             InitializeComponent();
+
+            MessageSetting.ToastMaxCount = 3;
         }
 
         private void ButtonEvents(bool taskThread = false)
@@ -198,8 +200,7 @@ namespace Demo
                     toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
                     break;
             }
-            ToastWindow toastWindow = new ToastWindow(toastData);
-            toastWindow.Show();
+            ToastWindow.Show(toastData);
         }
 
 
