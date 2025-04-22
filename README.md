@@ -1,6 +1,6 @@
 # MessageWindowWPF
 Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window, Toast. Support to switch dark or light theme.     
-包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗、弹出通知。支持设置浅色/深色主题。    
+包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗、桌面弹出通知。支持设置浅色/深色主题。    
    
 MessageBox:     
 ![MessageBox](./ScreenShot/MessageBox2.jpg)      

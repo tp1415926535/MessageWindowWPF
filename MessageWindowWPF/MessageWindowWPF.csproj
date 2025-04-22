@@ -3,13 +3,14 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net472;net6.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <Description>Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window. 
-包括支持富文本的更现代化界面的消息窗、输入框、可自动关闭的提示窗。</Description>
+    <Description>Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window, Toast. 
+包括支持富文本的更现代化界面的消息窗、输入框、可自动关闭的提示窗、桌面弹出通知。</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/tp1415926535/MessageWindowWPF</PackageProjectUrl>
-    <Version>1.2.0</Version>
+    <Version>2.0.0</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Authors>tp1415926535(纵码过河山)</Authors>
   </PropertyGroup>
 
   <ItemGroup>
