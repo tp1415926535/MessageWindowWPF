@@ -60,8 +60,7 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <TextBlock Text="{Binding Time,StringFormat='yyyy-MM-dd HH:mm:ss'}" Opacity="0.2" Margin="0,0,8,0" FontSize="11" VerticalAlignment="Center"/>
-                        <Button Width="15" Height="15" VerticalAlignment="Center" Click="CloseButton_Click"
-                                Background="Transparent" Cursor="Hand" BorderThickness="0" Style="{StaticResource ThemeIconButton}">
+                        <Button Click="CloseButton_Click" Style="{StaticResource ThemeIconButton}" Cursor="Hand">
                             <Path StrokeThickness="1" Stretch="Uniform" Margin="2" Opacity="0.5" Data="M0,0 1,1 M1,0 0,1"/>
                         </Button>
                     </StackPanel>

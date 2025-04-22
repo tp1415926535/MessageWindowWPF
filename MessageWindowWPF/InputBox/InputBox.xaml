@@ -9,7 +9,15 @@
         Background="Transparent" 
         Topmost="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" MaxWidth="500">
     <Window.Resources>
-        <DropShadowEffect x:Key="shadowEffect" BlurRadius="12" ShadowDepth="0" Opacity="0.3"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MessageWindowWPF;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DropShadowEffect x:Key="shadowEffect" BlurRadius="12" ShadowDepth="0" Opacity="0.3"/>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource ThemeTextBlock}"/>
+            <Style TargetType="Button" BasedOn="{StaticResource ThemeButton}"/>
+            <Style TargetType="Path" BasedOn="{StaticResource ThemePath}"/>
+        </ResourceDictionary>
     </Window.Resources>
     <Border x:Name="MainBorder" Background="{DynamicResource WindowBack}" BorderBrush="{DynamicResource ControlBorder}"  UseLayoutRounding="True">
         <Grid>
@@ -33,56 +41,10 @@
                     <Viewbox Height="18" Margin="0,0,5,0">
                         <Image Source="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"/>
                     </Viewbox>
-                    <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" Height="15" 
-                               Foreground="{DynamicResource WindowText}"/>
+                    <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" Height="15"/>
                 </StackPanel>
-                <Button x:Name="CloseButton" HorizontalAlignment="Right" Cursor="Hand" Height="15" Width="15" BorderThickness="0" Click="CloseButton_Click">
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="transparent"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                        <Style TargetType="{x:Type Image}">
-                            <Setter Property="Effect" Value="{x:Null}"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Effect">
-                                        <Setter.Value>
-                                            <DropShadowEffect BlurRadius="2" ShadowDepth="2" Color="LightGray" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Resources>
-                    <Path Data="M0,0 1,1 M 0,1 1,0" StrokeThickness="1" Stretch="UniformToFill" Margin="2">
-                        <Path.Style>
-                            <Style TargetType="Path">
-                                <Setter Property="Stroke" Value="{DynamicResource WindowText}"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Stroke" Value="Silver"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Path.Style>
-                    </Path>
+                <Button x:Name="CloseButton" HorizontalAlignment="Right" Click="CloseButton_Click" Style="{StaticResource ThemeIconButton}">
+                    <Path Data="M0,0 1,1 M 0,1 1,0" StrokeThickness="1" Stretch="UniformToFill" Margin="2"/>
                 </Button>
             </Grid>
             <Grid Grid.Row="1">
@@ -96,48 +58,14 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid>
-                        <TextBlock x:Name="PromptText" Text="" VerticalAlignment="Top" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="10"
-                                   Foreground="{DynamicResource WindowText}"/>
+                        <TextBlock x:Name="PromptText" Text="" VerticalAlignment="Top" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="10"/>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.Resources>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="{DynamicResource ButtonBack}"/>
-                                <Setter Property="BorderBrush" Value="{DynamicResource ControlBorder}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource WindowText}"/>
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Height" Value="25"/>
                                 <Setter Property="Width" Value="80"/>
                                 <Setter Property="Margin" Value="5"/>
-                                <!--<Setter Property="Effect">
-                                <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="0" Opacity="0.2" BlurRadius="5"/>
-                                </Setter.Value>
-                                </Setter>-->
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Background="{TemplateBinding Background}">
-                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource ButtonHover}" />
-                                                </Trigger>
-                                                <Trigger Property="Button.IsFocused" Value="True">
-                                                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource ButtonPressed}" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Width" Value="auto"/>
-                                <Style.Triggers>
-                                    <Trigger Property="Visibility" Value="Hidden">
-                                        <Setter Property="Width" Value="0"/>
-                                    </Trigger>
-                                </Style.Triggers>
                             </Style>
                         </Grid.Resources>
                         <StackPanel x:Name="OKCancelButtonsGrid">
