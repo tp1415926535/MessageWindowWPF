@@ -1,18 +1,21 @@
 # MessageWindowWPF
-Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window. Support to switch dark or light theme.     
-包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗。支持设置浅色/深色主题。    
+Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window, Toast. Support to switch dark or light theme.     
+包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗、弹出通知。支持设置浅色/深色主题。    
    
 MessageBox:     
-![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox2.jpg)      
+![MessageBox](./ScreenShot/MessageBox2.jpg)      
     
 InputBox:     
-![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/InputBox2.jpg)     
+![InputBox](./ScreenShot/InputBox2.jpg)     
     
 Prompt:     
-![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt2.jpg)     
+![Prompt](./ScreenShot/Prompt2.jpg)     
+
+Toast:     
+![Toast](./ScreenShot/Toast.png)   
 
 DarkTheme:      
-![DarkMessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/DarkTheme.jpg)
+![DarkMessageBox](./ScreenShot/DarkTheme.jpg)
      
 [![release](https://img.shields.io/github/v/release/tp1415926535/MessageWindowWPF?color=green&logo=github)](https://github.com/tp1415926535/MessageWindowWPF/releases) 
 [![nuget](https://img.shields.io/nuget/v/MessageWindowWPF?color=lightblue&logo=nuget)](https://www.nuget.org/packages/MessageWindowWPF) 
@@ -27,7 +30,7 @@ DarkTheme:
 Download package from Nuget, or using the release Dll.   
   
 ## MessageBox 
-![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox1.jpg)       
+![MessageBox](./ScreenShot/MessageBox1.jpg)       
       
 Except for the absence of the MessageBoxOptions parameter, all other features are seamlessly integrated with the original version.   
 
@@ -43,7 +46,7 @@ using MessageBox = MessageWindowWPF.MessageBox; //Just add the namespace
   MessageBox.Show("Message2!", "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
-![MessageBox-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/MessageBox3.jpg)     
+![MessageBox-richtext](./ScreenShot/MessageBox3.jpg)     
 If you want to display rich text, you can also just pass in the parameters:
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; 
@@ -66,7 +69,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 ```
 
 ## InputBox
-![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/InputBox1.jpg)      
+![InputBox](./ScreenShot/InputBox1.jpg)      
 
 Input box similar to VB's component.
 ```c#
@@ -91,7 +94,7 @@ using MessageWindowWPF;
 ```
 
 ## Prompt
-![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt1.jpg)      
+![Prompt](./ScreenShot/Prompt1.jpg)      
 
 Fade-in and fade-out cues, support countdown and double click to close.
 ```c#
@@ -102,7 +105,7 @@ using MessageWindowWPF;
 Function: `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`, return Window.    
 When the parameter value of "liveSeconds" <= 0, the window will be displayed until it is closed by double-clicking.    
      
-![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/Prompt3.jpg)     
+![Prompt-richtext](./ScreenShot/Prompt3.jpg)     
 If you want to display rich text, you can also just pass in the parameters:
 ```c#
 using MessageWindowWPF;
@@ -121,13 +124,56 @@ using MessageWindowWPF;
   Prompt.Show("Show text");
 ```
 
+## Toast
+![Toast-long](./ScreenShot/Toast-long.png)   
+Notification in the bottom right corner of the desktop, imitating the default notification of the Windows system.
+*(Due to Microsoft's official UWP package forcing the specification of Windows version and causing issues with publishing a single exe, I implemented this notification on my own)*
+```c#
+using MessageWindowWPF;
+
+var toastData = new ToastData()
+{
+    Title = "Application name",
+    Header = "Notification prompt title",
+    //Icon = new BitmapImage(new Uri("/Resouces/logo.png", UriKind.RelativeOrAbsolute)),
+};
+toastData.Contents.Add("Notification Details");
+ToastWindow.Show(toastData);
+```
+`ToastData` contains all display content, and the field descriptions are as follows:
+- Time：create time string
+- Icon：application icon
+- Title：application name
+- Header：Notification title
+- Contents：String list, each item represents a line
+- HeadImage：displayed above the title
+- BodyImage：displayed below the content and above the button.
+- Buttons：Button text and corresponding events, each button is evenly distributed in width
+- CustomAudioPath：Customize the path for playing sound effects
+- Duration：Notification duration, default is 7 seconds. If it is less than or equal to 0, it will always be displayed until manually turned off
+- Mute：Notify whether to mute
+
+You can also customize some configurations：
+```csharp
+//The maximum number of notifications displayed simultaneously exceeds the queue waiting time. If it is less than or equal to 0, there is no limit
+MessageSetting.ToastMaxCount = 3;
+
+//Latest notification display at the bottom, contrary to the default behavior of the Windows system
+MessageSetting.ToastLatestAtBottom = true;
+
+//Allow double clicking notifications to close
+MessageSetting.ToastDoubleClickClose = true;
+```
+
+
 ## Additional information
 * Because there are only four buttons, the current text only comes with Chinese and English. 
 The default is displayed in the current language. Alternatively, you can set it manually by changing the value of **"MessageSetting.settings.UIculture"**. 
 
 ## Version   
+* v2.0.0 2025/04/22 Added a notification in the bottom right corner of the desktop imitating the Windows system. Style code optimization, unification, and adjustment.
 * v1.2.0 2025/03/21 Fix a static variable that causes a problem with the result of closing the window directly.
-* V1.1.0 2022/11/06 added support for light and dark themes, simplified settings, and allowed for full customization of colors.
+* v1.1.0 2022/11/06 added support for light and dark themes, simplified settings, and allowed for full customization of colors.
 * v1.0.0 2022/12/07 Basic features. 
 ---
    
@@ -136,7 +182,7 @@ The default is displayed in the current language. Alternatively, you can set it 
 从Nuget下载包，或者引用release的Dll。   
   
 ## 消息窗（MessageBox）
-![MessageBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/消息窗1.jpg)      
+![MessageBox](./ScreenShot/消息窗1.jpg)      
 除了没有 MessageBoxOptions 参数之外，其他功能都与原版无缝衔接。     
 设置全局引用来替换所有的弹窗:
 ```c#
@@ -150,7 +196,7 @@ using MessageBox = MessageWindowWPF.MessageBox; //添加这行即可
   MessageBox.Show("消息2！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
   
-![MessageBox-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/消息窗3.jpg)     
+![MessageBox-richtext](./ScreenShot/消息窗3.jpg)     
 如果想要显示富文本，也只需传入参数即可:
 ```c#
 using MessageBox = MessageWindowWPF.MessageBox; 
@@ -173,7 +219,7 @@ using MessageBox = MessageWindowWPF.MessageBox;
 ```
 
 ## 输入框（InputBox）
-![InputBox](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/输入框1.jpg)      
+![InputBox](./ScreenShot/输入框1.jpg)      
 类似于VB组件的输入框
 ```c#
 using MessageWindowWPF;
@@ -196,7 +242,7 @@ using MessageWindowWPF;
 ```
 
 ## 提示（Prompt）
-![Prompt](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/提示窗1.jpg)      
+![Prompt](./ScreenShot/提示窗1.jpg)      
 淡入和淡出的提示，支持倒计时和双击关闭。
 ```c#
 using MessageWindowWPF;
@@ -206,7 +252,7 @@ using MessageWindowWPF;
 函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。      
 当"liveSeconds" 的参数值<=0时，窗口将会一直显示直到双击关闭它。      
    
-![Prompt-richtext](https://github.com/tp1415926535/MessageWindowWPF/blob/master/ScreenShot/提示窗3.jpg)     
+![Prompt-richtext](./ScreenShot/提示窗3.jpg)     
 如果想要显示富文本，也只需传入参数即可:
 ```c#
 using MessageWindowWPF;
@@ -225,11 +271,54 @@ using MessageWindowWPF;
   Prompt.Show("提示文字");
 ```
 
+## 弹出通知（Toast）
+![Toast-long](./ScreenShot/Toast-long.png)   
+桌面右下角通知，仿win系统默认通知。   
+*（鉴于微软官方的uwp包强制指定windows版本，并且导致发布单个exe有问题，才自行实现了这个通知）*
+```c#
+using MessageWindowWPF;
+
+var toastData = new ToastData()
+{
+    Title = "应用名称",
+    Header = "通知提示标题",
+    //Icon = new BitmapImage(new Uri("/Resouces/logo.png", UriKind.RelativeOrAbsolute)),
+};
+toastData.Contents.Add("通知详情");
+ToastWindow.Show(toastData);
+```
+其中`ToastData`包含所有显示内容，字段说明如下：
+- Time：时间
+- Icon：应用图标
+- Title：应用名称
+- Header：通知标题
+- Contents：字符串列表，每项代表一行
+- HeadImage：头图，显示在标题上方
+- BodyImage：插图，显示在内容下方，按钮上方。
+- Buttons：按钮文本和对应事件，均等分布
+- CustomAudioPath：自定义播放音效的路径
+- Duration：通知停留时长，默认7秒，小于等于0则始终显示直到手动关闭
+- Mute：通知是否静音
+
+还可以自定义一些配置：
+```csharp
+//最大同时显示通知数量，超出排队等候。小于等于0则无限制
+MessageSetting.ToastMaxCount = 3;
+
+//最新通知是否显示最底下，与win系统默认行为相反
+MessageSetting.ToastLatestAtBottom = true;
+
+//是否允许双击通知关闭
+MessageSetting.ToastDoubleClickClose = true;
+```
+
+
 ## 其他说明
 * 因为只有四个按钮，所以目前的文字只带有中文和英文。
 默认按当前语言显示，另外还可以通过改变 **MessageSetting.settings.UIculture** 的值来手动设置它。
 
 ## Version   
-* v1.2.0 2025/03/21 修复静态变量导致直接关闭窗口结果有问题
+* v2.0.0 2025/04/22 增加仿win系统的桌面右下角的通知。样式代码优化统一和调整。
+* v1.2.0 2025/03/21 修复静态变量导致直接关闭窗口结果有问题。
 * v1.1.0 2022/11/06 增加明暗主题支持，简化设置，允许完全自定义颜色。
-* v1.0.0 2022/12/07 基本功能. 
+* v1.0.0 2022/12/07 基本功能。

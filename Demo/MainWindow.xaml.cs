@@ -166,44 +166,44 @@ namespace Demo
                 //Time = string.Empty,
                 //Duration = 0
             };
-            Random random = new Random();
-            int randomNumber = random.Next(0, 6);
-            switch (randomNumber)
-            {
-                case 0:
-                    toastData.BodyImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-                    toastData.Contents.Add("line1: some content here.");
-                    toastData.Contents.Add("line2: nothing.");
-                    break;
-                case 1:
-                    toastData.HeadImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-                    toastData.Contents.Add("line1: some content here.");
-                    toastData.Contents.Add("line2: nothing.");
-                    break;
-                case 2:
-                    toastData.Contents.Add("line1: some content here.");
-                    toastData.Contents.Add("line2: nothing.");
-                    break;
-                case 3:
-                    toastData.Contents.Add("line1: some content here.");
-                    toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
-                    toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
-                    break;
-                case 4:
-                    toastData.HeadImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-                    toastData.Contents.Add("line1: some content here.");
-                    toastData.Contents.Add("line2: nothing.");
-                    toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
-                    toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
-                    break;
-                case 5:
-                    toastData.BodyImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-                    toastData.Contents.Add("line1: some content here.");
-                    toastData.Contents.Add("line2: nothing.");
-                    toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
-                    toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
-                    break;
-            }
+            //Random random = new Random();
+            //int randomNumber = random.Next(0, 6);
+            //switch (randomNumber)
+            //{
+            //    case 0:
+            //        toastData.BodyImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+            //        toastData.Contents.Add("line1: some content here.");
+            //        toastData.Contents.Add("line2: nothing.");
+            //        break;
+            //    case 1:
+            //        toastData.HeadImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+            //        toastData.Contents.Add("line1: some content here.");
+            //        toastData.Contents.Add("line2: nothing.");
+            //        break;
+            //    case 2:
+            //        toastData.Contents.Add("line1: some content here.");
+            //        toastData.Contents.Add("line2: nothing.");
+            //        break;
+            //    case 3:
+            //        toastData.Contents.Add("line1: some content here.");
+            //        toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
+            //        toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
+            //        break;
+            //    case 4:
+            //        toastData.HeadImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+            //        toastData.Contents.Add("line1: some content here.");
+            //        toastData.Contents.Add("line2: nothing.");
+            //        toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
+            //        toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
+            //        break;
+            //    case 5:
+            //        toastData.BodyImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+            //        toastData.Contents.Add("line1: some content here.");
+            //        toastData.Contents.Add("line2: nothing.");
+            //        toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
+            //        toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
+            //        break;
+            //}
             ToastWindow.Show(toastData);
         }
 
