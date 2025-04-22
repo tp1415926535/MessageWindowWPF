@@ -155,6 +155,9 @@ ToastWindow.Show(toastData);
 
 You can also customize some configurations：
 ```csharp
+//dark theme
+MessageSetting.UseDarkTheme = true;
+
 //The maximum number of notifications displayed simultaneously exceeds the queue waiting time. If it is less than or equal to 0, there is no limit
 MessageSetting.ToastMaxCount = 3;
 
@@ -302,6 +305,9 @@ ToastWindow.Show(toastData);
 
 还可以自定义一些配置：
 ```csharp
+//深色主题
+MessageSetting.UseDarkTheme = true;
+
 //最大同时显示通知数量，超出排队等候。小于等于0则无限制
 MessageSetting.ToastMaxCount = 3;
 
