@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -51,6 +52,32 @@ namespace MessageWindowWPF
         public ToastWindowBuilder SetIcon(ImageSource img)
         {
             toastData.Icon = img;
+            return this;
+        }
+
+        /// <summary>
+        /// Set large icon for notifications
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="isCircle"></param>
+        /// <returns></returns>
+        public ToastWindowBuilder SetLargeIcon(Uri uri, bool isCircle = false)
+        {
+            toastData.LargeIcon = new BitmapImage(uri);
+            toastData.IsCircleLargeIcon = isCircle;
+            return this;
+        }
+
+        /// <summary>
+        /// Set large icon for notifications
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="isCircle"></param>
+        /// <returns></returns>
+        public ToastWindowBuilder SetLargeIcon(ImageSource img, bool isCircle = false)
+        {
+            toastData.LargeIcon = img;
+            toastData.IsCircleLargeIcon = isCircle;
             return this;
         }
 

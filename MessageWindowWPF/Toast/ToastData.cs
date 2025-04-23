@@ -28,6 +28,16 @@ namespace MessageWindowWPF
         public ImageSource Icon { get; set; }
 
         /// <summary>
+        /// Large icon
+        /// </summary>
+        public ImageSource LargeIcon { get; set; }
+
+        /// <summary>
+        /// Large icon is circle or not
+        /// </summary>
+        public bool IsCircleLargeIcon { get; set; }
+
+        /// <summary>
         /// Title of the window
         /// </summary>
         public string Title { get; set; }

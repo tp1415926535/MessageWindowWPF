@@ -168,47 +168,32 @@ namespace Demo
                 .SetTitle("app name")
                 .SetIcon(new Uri("/Resources/logo.png", UriKind.RelativeOrAbsolute))
                 .SetHeader("ToastTitle");
-                //.KeepDisplay()
-                //.Mute();
+            //.KeepDisplay()
+            //.Mute();
             Random random = new Random();
-            int randomNumber = random.Next(0, 6);
-            switch (randomNumber)
-            {
-                case 0:
-                    builder.SetBodyImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute))
-                            .AddContent("line1: some content here.")
-                            .AddContent("line2: nothing.");
-                    break;
-                case 1:
-                    builder.SetHeadImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute))
-                           .AddContent("line1: some content here.")
-                           .AddContent("line2: nothing.");
-                    break;
-                case 2:
-                    builder.AddContent("line1: some content here.")
-                           .AddContent("line2: nothing.");
-                    break;
-                case 3:
-                    builder.AddContent("line1: some content here.")
-                           .AddButton("hello", ShowHello)
-                           .AddButton("goodbye", ShowGoodbye);
-                    break;
-                case 4:
-                    builder.SetHeadImage(new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute)))
-                           .AddContent("line1: some content here.")
-                           .AddContent("line2: nothing.")
-                           .AddButton("hello", ShowHello)
-                           .AddButton("goodbye", ShowGoodbye);
-                    break;
-                case 5:
-                    builder.SetBodyImage(new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute)))
-                           .AddContent("line1: some content here.")
-                           .AddContent("line2: nothing.")
-                           .AddButton("hello", ShowHello)
-                           .AddButton("goodbye", ShowGoodbye);
-                    break;
-            }
+            if (random.Next(0, 2) > 0)
+                builder.SetLargeIcon(new Uri("/Resources/blank-profile-male.jpg", UriKind.RelativeOrAbsolute), true);
+            if (random.Next(0, 2) > 0)
+                builder.AddContent("line1: some content here.");
+            if (random.Next(0, 2) > 0)
+                builder.AddContent("line2: another content.");
+            if (random.Next(0, 10) > 6)
+                builder.AddContent("line3: random word.");
+            if (random.Next(0, 10) > 8)
+                builder.AddContent("line4: nothing.");
+            if (random.Next(0, 2) > 0)
+                builder.AddButton("hello", ShowHello)
+                       .AddButton("goodbye", ShowGoodbye);
+
+            var randomNum = random.Next(0, 3);
+            if (randomNum == 0)
+                builder.SetBodyImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+            else if (randomNum == 1)
+                builder.SetHeadImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+            
             builder.Show();
+
+
             /*var toastData = new ToastData()
             {
                 Title = "demo",
