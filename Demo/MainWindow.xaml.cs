@@ -24,6 +24,12 @@ namespace Demo
         {
             InitializeComponent();
 
+            new ToastWindowBuilder()
+               .SetTitle("app name")
+               .SetIcon(new Uri("/Resources/logo.png", UriKind.RelativeOrAbsolute))
+               .SetHeader("Test Window Show")
+               .AddContent("Click Button to test.")
+               .Show();
             //MessageSetting.ToastMaxCount = 3;
             //MessageSetting.ToastLatestAtBottom = true;
             //MessageSetting.ToastDoubleClickClose = true;
@@ -158,53 +164,98 @@ namespace Demo
 
         private void ToastButton_Click(object sender, RoutedEventArgs e)
         {
-            var toastData = new ToastData()
+            var builder = new ToastWindowBuilder()
+                .SetTitle("app name")
+                .SetIcon(new Uri("/Resources/logo.png", UriKind.RelativeOrAbsolute))
+                .SetHeader("ToastTitle");
+                //.KeepDisplay()
+                //.Mute();
+            Random random = new Random();
+            int randomNumber = random.Next(0, 6);
+            switch (randomNumber)
+            {
+                case 0:
+                    builder.SetBodyImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute))
+                            .AddContent("line1: some content here.")
+                            .AddContent("line2: nothing.");
+                    break;
+                case 1:
+                    builder.SetHeadImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute))
+                           .AddContent("line1: some content here.")
+                           .AddContent("line2: nothing.");
+                    break;
+                case 2:
+                    builder.AddContent("line1: some content here.")
+                           .AddContent("line2: nothing.");
+                    break;
+                case 3:
+                    builder.AddContent("line1: some content here.")
+                           .AddButton("hello", ShowHello)
+                           .AddButton("goodbye", ShowGoodbye);
+                    break;
+                case 4:
+                    builder.SetHeadImage(new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute)))
+                           .AddContent("line1: some content here.")
+                           .AddContent("line2: nothing.")
+                           .AddButton("hello", ShowHello)
+                           .AddButton("goodbye", ShowGoodbye);
+                    break;
+                case 5:
+                    builder.SetBodyImage(new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute)))
+                           .AddContent("line1: some content here.")
+                           .AddContent("line2: nothing.")
+                           .AddButton("hello", ShowHello)
+                           .AddButton("goodbye", ShowGoodbye);
+                    break;
+            }
+            builder.Show();
+            /*var toastData = new ToastData()
             {
                 Title = "demo",
                 Header = "ToastTitle",
-                Icon = new BitmapImage(new Uri("/Resouces/logo.png", UriKind.RelativeOrAbsolute)),
+                Icon = new BitmapImage(new Uri("/Resources/logo.png", UriKind.RelativeOrAbsolute)),
                 //Time = string.Empty,
                 //Duration = 0
             };
-            //Random random = new Random();
-            //int randomNumber = random.Next(0, 6);
-            //switch (randomNumber)
-            //{
-            //    case 0:
-            //        toastData.BodyImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-            //        toastData.Contents.Add("line1: some content here.");
-            //        toastData.Contents.Add("line2: nothing.");
-            //        break;
-            //    case 1:
-            //        toastData.HeadImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-            //        toastData.Contents.Add("line1: some content here.");
-            //        toastData.Contents.Add("line2: nothing.");
-            //        break;
-            //    case 2:
-            //        toastData.Contents.Add("line1: some content here.");
-            //        toastData.Contents.Add("line2: nothing.");
-            //        break;
-            //    case 3:
-            //        toastData.Contents.Add("line1: some content here.");
-            //        toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
-            //        toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
-            //        break;
-            //    case 4:
-            //        toastData.HeadImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-            //        toastData.Contents.Add("line1: some content here.");
-            //        toastData.Contents.Add("line2: nothing.");
-            //        toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
-            //        toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
-            //        break;
-            //    case 5:
-            //        toastData.BodyImage = new BitmapImage(new Uri("/Resouces/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
-            //        toastData.Contents.Add("line1: some content here.");
-            //        toastData.Contents.Add("line2: nothing.");
-            //        toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
-            //        toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
-            //        break;
-            //}
-            ToastWindow.Show(toastData);
+            Random random = new Random();
+            int randomNumber = random.Next(0, 6);
+            switch (randomNumber)
+            {
+                case 0:
+                    toastData.BodyImage = new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+                    toastData.Contents.Add("line1: some content here.");
+                    toastData.Contents.Add("line2: nothing.");
+                    break;
+                case 1:
+                    toastData.HeadImage = new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+                    toastData.Contents.Add("line1: some content here.");
+                    toastData.Contents.Add("line2: nothing.");
+                    break;
+                case 2:
+                    toastData.Contents.Add("line1: some content here.");
+                    toastData.Contents.Add("line2: nothing.");
+                    break;
+                case 3:
+                    toastData.Contents.Add("line1: some content here.");
+                    toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
+                    toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
+                    break;
+                case 4:
+                    toastData.HeadImage = new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+                    toastData.Contents.Add("line1: some content here.");
+                    toastData.Contents.Add("line2: nothing.");
+                    toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
+                    toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
+                    break;
+                case 5:
+                    toastData.BodyImage = new BitmapImage(new Uri("/Resources/pexels-maria-mileta.jpg", UriKind.RelativeOrAbsolute));
+                    toastData.Contents.Add("line1: some content here.");
+                    toastData.Contents.Add("line2: nothing.");
+                    toastData.Buttons.Add(new ButtonActionItem("hello", ShowHello));
+                    toastData.Buttons.Add(new ButtonActionItem("goodbye", ShowGoodbye));
+                    break;
+            }
+            ToastWindow.Show(toastData);*/
         }
 
 

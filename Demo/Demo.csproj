@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <None Remove="pexels-maria-mileta.jpg" />
-    <None Remove="Resouces\logo.png" />
+    <None Remove="Resources\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resouces\logo.png" />
-    <Resource Include="Resouces\pexels-maria-mileta.jpg" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\pexels-maria-mileta.jpg" />
   </ItemGroup>
 
 </Project>
