@@ -1,5 +1,5 @@
 # MessageWindowWPF
-Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window, Toast. Support to switch dark or light theme.     
+Includes MessageBox with a more modern interface and rich text support, InputBox, can auto-closing Prompt Window, Toast notification. Support to switch dark or light theme.     
 包括支持富文本的更现代化界面的消息框、输入框、可自动关闭的提示窗、桌面弹出通知。支持设置浅色/深色主题。    
    
 MessageBox:     
@@ -11,7 +11,7 @@ InputBox:
 Prompt:     
 ![Prompt](./ScreenShot/Prompt2.jpg)     
 
-Toast:     
+Toast notification:     
 ![Toast](./ScreenShot/Toast.png)   
 
 DarkTheme:      
@@ -124,34 +124,36 @@ using MessageWindowWPF;
   Prompt.Show("Show text");
 ```
 
-## Toast
+## Toast notification
 ![Toast-long](./ScreenShot/Toast-long.png)   
 Notification in the bottom right corner of the desktop, imitating the default notification of the Windows system.
 *(Due to Microsoft's official UWP package forcing the specification of Windows version and causing issues with publishing a single exe, I implemented this notification on my own)*
+
 ```c#
 using MessageWindowWPF;
 
-var toastData = new ToastData()
-{
-    Title = "Application name",
-    Header = "Notification prompt title",
-    //Icon = new BitmapImage(new Uri("/Resouces/logo.png", UriKind.RelativeOrAbsolute)),
-};
-toastData.Contents.Add("Notification Details");
-ToastWindow.Show(toastData);
+new ToastWindowBuilder()
+    .SetTitle("Application name")
+    .SetIcon(new Uri("/Resources/logo.png", UriKind.RelativeOrAbsolute))
+    .SetHeader("Notification prompt title")
+    .AddContent("Notification Details")
+    .Show();
 ```
-`ToastData` contains all display content, and the field descriptions are as follows:
-- Time：create time string
-- Icon：application icon
-- Title：application name
-- Header：Notification title
-- Contents：String list, each item represents a line
-- HeadImage：displayed above the title
-- BodyImage：displayed below the content and above the button.
-- Buttons：Button text and corresponding events, each button is evenly distributed in width
-- CustomAudioPath：Customize the path for playing sound effects
-- Duration：Notification duration, default is 7 seconds. If it is less than or equal to 0, it will always be displayed until manually turned off
-- Mute：Notify whether to mute
+The `ToastWindowBuilder` support following setting：
+- `SetTime(string time)`：create time string
+- `SetIcon(Uri uri)`：application icon
+- `SetTitle(string text)`：application name
+- `SetLargeIcon(Uri uri, bool isCircle = false)`：large icon
+- `SetHeader(string text)`：Notification title
+- `AddContent(string text)`：Notification Details, each item represents a line
+- `SetHeadImage(Uri uri)`：image which displayed above the title
+- `SetBodyImage(Uri uri)`：image which displayed below the content and above the button.
+- `AddButton(string text, Action action)`：Button text and corresponding events, each button is evenly distributed in width
+- `SetAudioPath(string file)`：Customize the path for playing sound effects
+- `SetDuration(int seconds)`：Notification duration, default is 7 seconds. If it is less than or equal to 0, it will always be displayed until manually turned off
+- `KeepDisplay()`：Always be displayed until manually turned off
+- `Mute()`：Notify whether to mute
+- `Show()`：show the toast
 
 You can also customize some configurations：
 ```csharp
@@ -174,6 +176,7 @@ MessageSetting.ToastDoubleClickClose = true;
 The default is displayed in the current language. Alternatively, you can set it manually by changing the value of **"MessageSetting.settings.UIculture"**. 
 
 ## Version   
+* v2.1.0 2025/04/23 Add ToastWindowBuilder class to simplify generation, Toast adds support for large icons
 * v2.0.0 2025/04/22 Added a notification in the bottom right corner of the desktop imitating the Windows system. Style code optimization, unification, and adjustment.
 * v1.2.0 2025/03/21 Fix a static variable that causes a problem with the result of closing the window directly.
 * v1.1.0 2022/11/06 added support for light and dark themes, simplified settings, and allowed for full customization of colors.
@@ -281,27 +284,28 @@ using MessageWindowWPF;
 ```c#
 using MessageWindowWPF;
 
-var toastData = new ToastData()
-{
-    Title = "应用名称",
-    Header = "通知提示标题",
-    //Icon = new BitmapImage(new Uri("/Resouces/logo.png", UriKind.RelativeOrAbsolute)),
-};
-toastData.Contents.Add("通知详情");
-ToastWindow.Show(toastData);
+new ToastWindowBuilder()
+    .SetTitle("应用名称")
+    .SetIcon(new Uri("/Resources/logo.png", UriKind.RelativeOrAbsolute))
+    .SetHeader("通知提示标题")
+    .AddContent("通知详情")
+    .Show();
 ```
-其中`ToastData`包含所有显示内容，字段说明如下：
-- Time：时间
-- Icon：应用图标
-- Title：应用名称
-- Header：通知标题
-- Contents：字符串列表，每项代表一行
-- HeadImage：头图，显示在标题上方
-- BodyImage：插图，显示在内容下方，按钮上方。
-- Buttons：按钮文本和对应事件，均等分布
-- CustomAudioPath：自定义播放音效的路径
-- Duration：通知停留时长，默认7秒，小于等于0则始终显示直到手动关闭
-- Mute：通知是否静音
+其中`ToastWindowBuilder`支持如下设置：
+- `SetTime(string time)`：时间文本
+- `SetIcon(Uri uri)`：应用图标
+- `SetTitle(string text)`：应用名称
+- `SetLargeIcon(Uri uri, bool isCircle = false)`：大图标
+- `SetHeader(string text)`：通知标题
+- `AddContent(string text)`：通知内容，每项代表一行
+- `SetHeadImage(Uri uri)`：头图，显示在标题上方
+- `SetBodyImage(Uri uri)`：插图，显示在内容下方，按钮上方。
+- `AddButton(string text, Action action)`：按钮文本和对应事件，所有按钮都在同一行并宽度均等分布
+- `SetAudioPath(string file)`：自定义播放音效的路径
+- `SetDuration(int seconds)`：通知停留时长，默认7秒，小于等于0则始终显示直到手动关闭
+- `KeepDisplay()`：是否始终显示
+- `Mute()`：通知是否静音
+- `Show()`：显示toast
 
 还可以自定义一些配置：
 ```csharp
@@ -324,6 +328,7 @@ MessageSetting.ToastDoubleClickClose = true;
 默认按当前语言显示，另外还可以通过改变 **MessageSetting.settings.UIculture** 的值来手动设置它。
 
 ## Version   
+* v2.1.0 2025/04/23 增加ToastWindowBuilder辅助类简化生成，Toast增加大图标支持。
 * v2.0.0 2025/04/22 增加仿win系统的桌面右下角的通知。样式代码优化统一和调整。
 * v1.2.0 2025/03/21 修复静态变量导致直接关闭窗口结果有问题。
 * v1.1.0 2022/11/06 增加明暗主题支持，简化设置，允许完全自定义颜色。
