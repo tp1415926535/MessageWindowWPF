@@ -98,20 +98,20 @@
                         </Style>
                     </Grid.Resources>
                     <StackPanel x:Name="OKButtonsGrid" HorizontalAlignment="Right" Visibility="Collapsed">
-                        <Button Content="{DynamicResource ResourceKey=OK}" Click="OKButton_Click" IsCancel="True"/>
+                        <Button x:Name="OkGridOkBtn" Content="{DynamicResource ResourceKey=OK}" Click="OKButton_Click" IsCancel="True"/>
                     </StackPanel>
                     <StackPanel x:Name="OKCancelButtonsGrid" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
-                        <Button Content="{DynamicResource ResourceKey=OK}" Click="OKButton_Click"/>
-                        <Button Content="{DynamicResource ResourceKey=Cancel}" Click="CancelButton_Click" IsCancel="True"/>
+                        <Button x:Name="OCGridOkBtn" Content="{DynamicResource ResourceKey=OK}" Click="OKButton_Click"/>
+                        <Button x:Name="OCGridCancelBtn" Content="{DynamicResource ResourceKey=Cancel}" Click="CancelButton_Click" IsCancel="True"/>
                     </StackPanel>
                     <StackPanel x:Name="YesNoButtonsGrid" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
-                        <Button Content="{DynamicResource ResourceKey=Yes}" Click="YesButton_Click"/>
-                        <Button Content="{DynamicResource ResourceKey=No}" Click="NoButton_Click"/>
+                        <Button x:Name="YNGridYesBtn" Content="{DynamicResource ResourceKey=Yes}" Click="YesButton_Click"/>
+                        <Button x:Name="YNGridNoBtn" Content="{DynamicResource ResourceKey=No}" Click="NoButton_Click"/>
                     </StackPanel>
                     <StackPanel x:Name="YesNoCancelButtonsGrid" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
-                        <Button Content="{DynamicResource ResourceKey=Yes}" Click="YesButton_Click"/>
-                        <Button Content="{DynamicResource ResourceKey=No}" Click="NoButton_Click"/>
-                        <Button Content="{DynamicResource ResourceKey=Cancel}" Click="CancelButton_Click" IsCancel="True"/>
+                        <Button x:Name="YNCGridYesBtn" Content="{DynamicResource ResourceKey=Yes}" Click="YesButton_Click"/>
+                        <Button x:Name="YNCGridNoBtn" Content="{DynamicResource ResourceKey=No}" Click="NoButton_Click"/>
+                        <Button x:Name="YNCGridCancelBtn" Content="{DynamicResource ResourceKey=Cancel}" Click="CancelButton_Click" IsCancel="True"/>
                     </StackPanel>
                 </Grid>
             </Grid>

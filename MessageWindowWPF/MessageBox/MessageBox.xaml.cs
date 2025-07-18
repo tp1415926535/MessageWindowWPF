@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MessageWindowWPF
 {
@@ -21,14 +14,13 @@ namespace MessageWindowWPF
     /// </summary>
     public partial class MessageBox : Window
     {
-        private static MessageBox customMessageBox;
+        private static MessageBox messageBox;
         private MessageBoxResult result;
         public MessageBox()
         {
             InitializeComponent();
         }
 
-        #region innerMethod
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
@@ -83,7 +75,7 @@ namespace MessageWindowWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (result == MessageBoxResult.None)//没选直接关闭
+            if (result == MessageBoxResult.None)//set as default result
             {
                 if (OKButtonsGrid.Visibility == Visibility.Visible)
                     result = MessageBoxResult.OK;
@@ -95,8 +87,6 @@ namespace MessageWindowWPF
                     e.Cancel = true;
             }
         }
-
-
 
 
         private void SetWindowStyle()
@@ -245,175 +235,98 @@ namespace MessageWindowWPF
                 }
             }
         }
-        #endregion
 
-
-
+        private void SetCustomText(MessageBoxParams inputParam)
+        {
+            switch (inputParam.Buttons)
+            {
+                case MessageBoxButton.OK:
+                    if (!string.IsNullOrEmpty(inputParam.CustomOkText))
+                        messageBox.OkGridOkBtn.Content = inputParam.CustomOkText;
+                    break;
+                case MessageBoxButton.OKCancel:
+                    if (!string.IsNullOrEmpty(inputParam.CustomOkText))
+                        messageBox.OCGridOkBtn.Content = inputParam.CustomOkText;
+                    if (!string.IsNullOrEmpty(inputParam.CustomCancelText))
+                        messageBox.OCGridCancelBtn.Content = inputParam.CustomCancelText;
+                    break;
+                case MessageBoxButton.YesNo:
+                    if (!string.IsNullOrEmpty(inputParam.CustomYesText))
+                        messageBox.YNGridYesBtn.Content = inputParam.CustomYesText;
+                    if (!string.IsNullOrEmpty(inputParam.CustomNoText))
+                        messageBox.YNGridNoBtn.Content = inputParam.CustomNoText;
+                    break;
+                case MessageBoxButton.YesNoCancel:
+                    if (!string.IsNullOrEmpty(inputParam.CustomYesText))
+                        messageBox.YNCGridYesBtn.Content = inputParam.CustomYesText;
+                    if (!string.IsNullOrEmpty(inputParam.CustomNoText))
+                        messageBox.YNCGridNoBtn.Content = inputParam.CustomNoText;
+                    if (!string.IsNullOrEmpty(inputParam.CustomCancelText))
+                        messageBox.YNCGridCancelBtn.Content = inputParam.CustomCancelText;
+                    break;
+            }
+        }
 
         private static MessageBoxResult ShowMessageBox(string messageBoxText = null, MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, Window owner = null, string caption = null, MessageBoxResult defaultResult = MessageBoxResult.None, IEnumerable<Inline> inlines = null, bool playSound = false)
         {
+            return ShowMessageBox(new MessageBoxParams(messageBoxText, caption, button, icon, owner, defaultResult, inlines, playSound));
+        }
+
+
+        private static MessageBoxResult ShowMessageBox(MessageBoxParams inputParam)
+        {
+            inputParam = inputParam ?? new MessageBoxParams();
             Application.Current.Dispatcher.Invoke((Action)(() =>
             {
-                customMessageBox = new MessageBox();
+                messageBox = new MessageBox();
 
-                customMessageBox.SetWindowStyle();
+                messageBox.SetWindowStyle();
 
-                if (!string.IsNullOrEmpty(messageBoxText))
-                    customMessageBox.MessageText.Text = messageBoxText;
-                if (inlines != null)
-                    customMessageBox.MessageText.Inlines.AddRange(inlines);
+                if (!string.IsNullOrEmpty(inputParam.Text))
+                    messageBox.MessageText.Text = inputParam.Text;
+                if (inputParam.Inlines != null)
+                    messageBox.MessageText.Inlines.AddRange(inputParam.Inlines);
 
-                customMessageBox.SetButtonVisible(button, defaultResult);
+                messageBox.SetButtonVisible(inputParam.Buttons, inputParam.DefaultResult);
 
-                customMessageBox.MessageIcon.Source = GetIcon(icon);
+                messageBox.MessageIcon.Source = GetIcon(inputParam.Icon);
 
                 try
                 {
-                    if (owner != null)
-                        customMessageBox.Owner = owner;
+                    if (inputParam.Owner != null)
+                        messageBox.Owner = inputParam.Owner;
                     else
-                        customMessageBox.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        messageBox.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 }
                 catch
                 {
-                    customMessageBox.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    messageBox.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 }
 
-                if (!string.IsNullOrEmpty(caption))
-                    customMessageBox.Title = caption;
+                if (!string.IsNullOrEmpty(inputParam.Title))
+                    messageBox.Title = inputParam.Title;
 
-                if (!string.IsNullOrEmpty(messageBoxText))
-                    customMessageBox.AdjustMaxWidth(messageBoxText.Length);
-                else if (inlines != null)
+                if (!string.IsNullOrEmpty(inputParam.Text))
+                    messageBox.AdjustMaxWidth(inputParam.Text.Length);
+                else if (inputParam.Inlines != null)
                 {
                     int textLength = 0;
-                    CalculateInlineLength(inlines, ref textLength);
-                    customMessageBox.AdjustMaxWidth(textLength);
+                    CalculateInlineLength(inputParam.Inlines, ref textLength);
+                    messageBox.AdjustMaxWidth(textLength);
                 }
 
-                if (playSound)
+                if (inputParam.PlaySound)
                     System.Media.SystemSounds.Beep.Play();//new System.Media.SoundPlayer(@"C:\Windows\Media\Windows Ding.wav").Play();
 
-                customMessageBox.ShowDialog();
+                messageBox.SetCustomText(inputParam);
+
+                messageBox.ShowDialog();
             }));
-            if (customMessageBox == null) return MessageBoxResult.None;
-            var messageResult = customMessageBox.result;
-            customMessageBox = null;
+            if (messageBox == null) return MessageBoxResult.None;
+            var messageResult = messageBox.result;
+            messageBox = null;
             return messageResult;
         }
-
-
-
-        #region outMethods
-        public static MessageBoxResult Show(string messageBoxText = null, MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, Window owner = null, string caption = null, MessageBoxResult defaultResult = MessageBoxResult.None, IEnumerable<Inline> inlines = null, bool playSound = false)
-        {
-            return ShowMessageBox(messageBoxText, button, icon, owner, caption, defaultResult, inlines, playSound);
-        }
-
-
-        public static MessageBoxResult Show(string messageBoxText)
-        {
-            return ShowMessageBox(messageBoxText);
-        }
-
-        public static MessageBoxResult Show(string messageBoxText, string caption)
-        {
-            return ShowMessageBox(messageBoxText, MessageBoxButton.OK, MessageBoxImage.None, null, caption);
-        }
-
-        public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
-        {
-            return ShowMessageBox(messageBoxText, button, MessageBoxImage.None, null, caption);
-        }
-
-        public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
-        {
-            return ShowMessageBox(messageBoxText, button, icon, null, caption);
-        }
-
-        public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult)
-        {
-            return ShowMessageBox(messageBoxText, button, icon, null, caption, defaultResult);
-        }
-
-        public static MessageBoxResult Show(IEnumerable<Inline> inlines)
-        {
-            return ShowMessageBox(null, MessageBoxButton.OK, MessageBoxImage.None, null, null, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(IEnumerable<Inline> inlines, string caption)
-        {
-            return ShowMessageBox(null, MessageBoxButton.OK, MessageBoxImage.None, null, caption, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(IEnumerable<Inline> inlines, string caption, MessageBoxButton button)
-        {
-            return ShowMessageBox(null, button, MessageBoxImage.None, null, caption, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(IEnumerable<Inline> inlines, string caption, MessageBoxButton button, MessageBoxImage icon)
-        {
-            return ShowMessageBox(null, button, icon, null, caption, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(IEnumerable<Inline> inlines, string caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult)
-        {
-            return ShowMessageBox(null, button, icon, null, caption, defaultResult, inlines);
-        }
-
-
-        public static MessageBoxResult Show(Window owner, string messageBoxText)
-        {
-            return ShowMessageBox(messageBoxText, MessageBoxButton.OK, MessageBoxImage.None, owner);
-        }
-
-        public static MessageBoxResult Show(Window owner, string messageBoxText, string caption)
-        {
-            return ShowMessageBox(messageBoxText, MessageBoxButton.OK, MessageBoxImage.None, owner, caption);
-        }
-
-        public static MessageBoxResult Show(Window owner, string messageBoxText, string caption, MessageBoxButton button)
-        {
-            return ShowMessageBox(messageBoxText, button, MessageBoxImage.None, owner, caption);
-        }
-
-        public static MessageBoxResult Show(Window owner, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
-        {
-            return ShowMessageBox(messageBoxText, button, icon, owner, caption);
-        }
-
-        public static MessageBoxResult Show(Window owner, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult)
-        {
-            return ShowMessageBox(messageBoxText, button, icon, owner, caption, defaultResult);
-        }
-
-
-        public static MessageBoxResult Show(Window owner, IEnumerable<Inline> inlines)
-        {
-            return ShowMessageBox(null, MessageBoxButton.OK, MessageBoxImage.None, owner, null, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(Window owner, IEnumerable<Inline> inlines, string caption)
-        {
-            return ShowMessageBox(null, MessageBoxButton.OK, MessageBoxImage.None, owner, caption, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(Window owner, IEnumerable<Inline> inlines, string caption, MessageBoxButton button)
-        {
-            return ShowMessageBox(null, button, MessageBoxImage.None, owner, caption, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(Window owner, IEnumerable<Inline> inlines, string caption, MessageBoxButton button, MessageBoxImage icon)
-        {
-            return ShowMessageBox(null, button, icon, owner, caption, MessageBoxResult.None, inlines);
-        }
-
-        public static MessageBoxResult Show(Window owner, IEnumerable<Inline> inlines, string caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult)
-        {
-            return ShowMessageBox(null, button, icon, owner, caption, defaultResult, inlines);
-        }
-
-        #endregion
     }
 
     public static class WinApi
