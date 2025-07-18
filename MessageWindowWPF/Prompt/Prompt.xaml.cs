@@ -19,7 +19,9 @@ namespace MessageWindowWPF
     /// </summary>
     public partial class Prompt : Window
     {
-        DispatcherTimer timer = new DispatcherTimer();
+        internal Action action { get; set; }
+
+        DispatcherTimer timer { get; set; } = new DispatcherTimer();
 
         public Prompt()
         {
@@ -82,70 +84,10 @@ namespace MessageWindowWPF
                 }
             }
         }
-
-        private static Prompt ShowPrompt(string content = null, IEnumerable<Inline> inlines = null, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
+        private void ActionButton_Click(object sender, RoutedEventArgs e)
         {
-            Prompt prompt = null;
-            Application.Current.Dispatcher.Invoke((Action)(() =>
-            {
-                prompt = new Prompt();
-                if (liveSeconds > 0)
-                    prompt.timer.Interval = TimeSpan.FromSeconds(liveSeconds);
-                else
-                    prompt.timer.Stop();
-
-                if (!string.IsNullOrEmpty(content))
-                    prompt.MainText.Text = content;
-                if (inlines != null)
-                    prompt.MainText.Inlines.AddRange(inlines);
-
-                if (MessageSetting.WithCornerRadius)
-                    prompt.MainBorder.CornerRadius = new CornerRadius(5);
-                
-                if (!string.IsNullOrEmpty(content))
-                    prompt.AdjustMaxWidth(content.Length);
-                else if (inlines != null)
-                {
-                    int textLength = 0;
-                    CalculateInlineLength(inlines, ref textLength);
-                    prompt.AdjustMaxWidth(textLength);
-                }
-
-                if (backColor != null)
-                {
-                    prompt.MainBorder.Background = new SolidColorBrush((Color)backColor);
-                    prompt.MainBorder.Background.Opacity = 0.9;
-                }
-                
-                if (point != null)
-                {
-                    prompt.WindowStartupLocation = WindowStartupLocation.Manual;
-                    prompt.Left = ((Point)point).X;
-                    prompt.Top = ((Point)point).Y;
-                }
-                else if (owner != null)
-                {
-                    prompt.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                    prompt.Owner = owner;
-                }
-                else
-                    prompt.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-                prompt.Show();
-                prompt.MainPopup.IsOpen = true;
-                prompt.Activate();
-            }));
-            return prompt;
-
-        }
-
-        public static Prompt Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
-        {
-            return ShowPrompt(content, null, liveSeconds, owner, point, backColor);
-        }
-        public static Prompt Show(IEnumerable<Inline> inlines, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
-        {
-            return ShowPrompt(null, inlines, liveSeconds, owner, point, backColor);
+            action?.Invoke();
+            this.Close();
         }
 
         private async void AutoClose(object sender, EventArgs e)
@@ -160,6 +102,79 @@ namespace MessageWindowWPF
             this.Close();
         }
 
-    }
 
+        private static Prompt ShowPrompt(string content = null, IEnumerable<Inline> inlines = null, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)
+        {
+            return ShowPrompt(new PromptParams(content, inlines, liveSeconds, owner, point, backColor));
+        }
+
+        private static Prompt ShowPrompt(PromptParams inputParam)
+        {
+            Prompt prompt = null;
+            Application.Current.Dispatcher.Invoke((Action)(() =>
+            {
+                prompt = new Prompt();
+                if (inputParam.LiveSeconds > 0)
+                    prompt.timer.Interval = TimeSpan.FromSeconds(inputParam.LiveSeconds);
+                else
+                    prompt.timer.Stop();
+
+                if (!string.IsNullOrEmpty(inputParam.Content))
+                    prompt.MainText.Text = inputParam.Content;
+                if (inputParam.Inlines != null)
+                    prompt.MainText.Inlines.AddRange(inputParam.Inlines);
+
+                if (MessageSetting.WithCornerRadius)
+                    prompt.MainBorder.CornerRadius = new CornerRadius(5);
+
+                if (!string.IsNullOrEmpty(inputParam.Content))
+                    prompt.AdjustMaxWidth(inputParam.Content.Length);
+                else if (inputParam.Inlines != null)
+                {
+                    int textLength = 0;
+                    CalculateInlineLength(inputParam.Inlines, ref textLength);
+                    prompt.AdjustMaxWidth(textLength);
+                }
+
+                if (inputParam.BackColor != null)
+                {
+                    prompt.MainBorder.Background = new SolidColorBrush(inputParam.BackColor.Value);
+                    prompt.MainBorder.Background.Opacity = 0.9;
+                }
+                if (inputParam.ForeColor != null)
+                    prompt.MainText.Foreground = new SolidColorBrush(inputParam.ForeColor.Value);
+
+                if (inputParam.Location != null)
+                {
+                    prompt.WindowStartupLocation = WindowStartupLocation.Manual;
+                    prompt.Left = inputParam.Location.Value.X;
+                    prompt.Top = inputParam.Location.Value.Y;
+                }
+                else if (inputParam.Owner != null)
+                {
+                    prompt.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                    prompt.Owner = inputParam.Owner;
+                }
+                else
+                    prompt.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+                if (inputParam.Action != null)
+                {
+                    prompt.action = inputParam.Action;
+                    prompt.ActionButton.Visibility = Visibility.Visible;
+                    if (!string.IsNullOrEmpty(inputParam.ActionText))
+                        prompt.ActionText.Text = inputParam.ActionText;
+                    if (inputParam.ActionForeColor != null)
+                        prompt.ActionText.Foreground = new SolidColorBrush(inputParam.ActionForeColor.Value);
+                }
+
+                prompt.Show();
+                prompt.MainPopup.IsOpen = true;
+                prompt.Activate();
+            }));
+            return prompt;
+
+        }
+
+    }
 }
