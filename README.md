@@ -207,6 +207,7 @@ MessageSetting.ToastDoubleClickClose = true;
 The default is displayed in the current language. Alternatively, you can set it manually by changing the value of **"MessageSetting.settings.UIculture"**. 
 
 ## Version   
+* v2.2.0 2025/07/18 MessageBox allows passing dto as param, and be able to customize the button display text. Prompt allows passing dto as param, you can set customized click action. InputBox can set the maximum length, and set the password char can become a password input box
 * v2.1.0 2025/04/23 Add ToastWindowBuilder class to simplify generation, Toast adds support for large icons
 * v2.0.0 2025/04/22 Added a notification in the bottom right corner of the desktop imitating the Windows system. Style code optimization, unification, and adjustment.
 * v1.2.0 2025/03/21 Fix a static variable that causes a problem with the result of closing the window directly.
@@ -390,6 +391,7 @@ MessageSetting.ToastDoubleClickClose = true;
 默认按当前语言显示，另外还可以通过改变 **MessageSetting.settings.UIculture** 的值来手动设置它。
 
 ## Version   
+* v2.2.0 2025/07/18 MessageBox允许传入dto作为参数，可以自定义按钮显示文本；Prompt允许传入dto作为参数，可以设置自定义点击事件；InputBox可以设置最大长度，设置密码符号可以变为密码输入框
 * v2.1.0 2025/04/23 增加ToastWindowBuilder辅助类简化生成，Toast增加大图标支持。
 * v2.0.0 2025/04/22 增加仿win系统的桌面右下角的通知。样式代码优化统一和调整。
 * v1.2.0 2025/03/21 修复静态变量导致直接关闭窗口结果有问题。
