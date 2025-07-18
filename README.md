@@ -57,6 +57,13 @@ using MessageBox = MessageWindowWPF.MessageBox;
   MessageBox.Show(inlines, "Tip", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
+If you want to customize the button text:
+```c#
+using MessageBox = MessageWindowWPF.MessageBox; 
+
+  MessageBox.Show(new MessageBoxParams() { Text ="Text", Title = "Title", CustomOkText = "Confirm" });
+```
+
 Some configurations can also be customized:
 ```c#
 using MessageWindowWPF;
@@ -79,7 +86,15 @@ using MessageWindowWPF;
   if (inputBox.ShowDialog("Write Something:", "Title") == true)
     Console.WriteLine(inputBox.value);
 ```
-Function: `inputBox.ShowDialog(string message = null, string title = null, string defaultValue = null)`, return bool?.
+Function:     
+`bool? result = inputBox.ShowDialog(string message = null, string title = null, string defaultValue = null)`   
+
+Allow setting `MaxLength`. And `PasswordChar` can turn the input box into a password box.
+```c#
+InputBox inputBox = new InputBox();
+inputBox.MaxLength = 5;
+inputBox.PasswordChar = '●';
+```
 
 Some configurations can also be customized:
 ```c#
@@ -102,7 +117,8 @@ using MessageWindowWPF;
 
   Prompt.Show("Show text");
 ```
-Function: `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`, return Window.    
+Function:    
+`Prompt p = Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`   
 When the parameter value of "liveSeconds" <= 0, the window will be displayed until it is closed by double-clicking.    
      
 ![Prompt-richtext](./ScreenShot/Prompt3.jpg)     
@@ -115,6 +131,21 @@ using MessageWindowWPF;
   inlines.Add(new Run("red text.") { Foreground = Brushes.Red });
   Prompt.Show(inlines);
 ```
+
+You can also set click events to display clickable text and arrows on the right side.
+```c#
+Prompt.Show(new PromptParams()
+{
+    Content = "Prompt text here, it will auto close after 3 seconds",
+    ActionText = "Click Here",
+    Action = (() =>
+    {
+        MessageBox.Show("ClickPrompt Event");
+    }),
+    ActionForeColor = Colors.Orange
+});
+```
+
 
 Custom configurations only have an effect on the color, but the color parameter of the function has a higher priority:
 ```c#
@@ -213,6 +244,13 @@ using MessageBox = MessageWindowWPF.MessageBox;
   MessageBox.Show(inlines, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 ```
 
+如果你希望自定义按钮文本:
+```c#
+using MessageBox = MessageWindowWPF.MessageBox; 
+
+  MessageBox.Show(new MessageBoxParams() { Text ="内容", Title = "标题", CustomOkText = "我已了解" });
+```
+
 还可以自定义一些配置：
 ```c#
 using MessageWindowWPF;
@@ -234,7 +272,15 @@ using MessageWindowWPF;
   if (inputBox.ShowDialog("输入提示：", "标题") == true)
     Console.WriteLine(inputBox.value);
 ```
-函数: `inputBox.ShowDialog(string message = null, string title = null, string defaultValue = null)`， 返回 bool?。
+函数:   
+`bool? result = inputBox.ShowDialog(string message = null, string title = null, string defaultValue = null)`   
+
+允许设置最大长度`MaxLength`. 并且 `PasswordChar` 可以使输入框变为密码框。
+```c#
+InputBox inputBox = new InputBox();
+inputBox.MaxLength = 5;
+inputBox.PasswordChar = '●';
+```
 
 还可以自定义一些配置：
 ```c#
@@ -255,7 +301,9 @@ using MessageWindowWPF;
 
   Prompt.Show("提示文字");
 ```
-函数： `Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`， 返回提示窗体。      
+函数：     
+`Prompt p = Prompt.Show(string content, double liveSeconds = 3, Window owner = null, Point? point = null, Color? backColor = null)`   
+
 当"liveSeconds" 的参数值<=0时，窗口将会一直显示直到双击关闭它。      
    
 ![Prompt-richtext](./ScreenShot/提示窗3.jpg)     
@@ -267,6 +315,20 @@ using MessageWindowWPF;
   inlines.Add(new Run("普通文本。 "));
   inlines.Add(new Run("红色文本。") { Foreground = Brushes.Red });
   Prompt.Show(inlines);
+```
+
+还可以设置点击事件，使得右侧出现可以点击的文字和箭头
+```c#
+Prompt.Show(new PromptParams()
+{
+    Content = "Prompt text here, it will auto close after 3 seconds",
+    ActionText = "Click Here",
+    Action = (() =>
+    {
+        MessageBox.Show("ClickPrompt Event");
+    }),
+    ActionForeColor = Colors.Orange
+});
 ```
 
 自定义配置只有颜色有作用，但是调用函数的颜色参数优先级更高:
