@@ -139,8 +139,12 @@ namespace MessageWindowWPF
                 if (inputParam.BackColor != null)
                 {
                     prompt.MainBorder.Background = new SolidColorBrush(inputParam.BackColor.Value);
-                    prompt.MainBorder.Background.Opacity = 0.9;
+                    if (inputParam.BackOpacity != null)
+                        prompt.MainBorder.Background.Opacity = inputParam.BackOpacity.Value;
+                    else
+                        prompt.MainBorder.Background.Opacity = 0.9;
                 }
+
                 if (inputParam.ForeColor != null)
                     prompt.MainText.Foreground = new SolidColorBrush(inputParam.ForeColor.Value);
 

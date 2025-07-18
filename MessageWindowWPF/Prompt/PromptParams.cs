@@ -35,6 +35,10 @@ namespace MessageWindowWPF
 
         public Color? ForeColor { get; set; }
 
+        /// <summary>
+        /// 0~1
+        /// </summary>
+        public double? BackOpacity { get; set; }
 
         public Action Action { get; set; }
 
