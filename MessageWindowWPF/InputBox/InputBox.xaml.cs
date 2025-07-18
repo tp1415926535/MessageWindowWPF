@@ -17,7 +17,51 @@ namespace MessageWindowWPF
     /// </summary>
     public partial class InputBox : Window
     {
-        public string value;
+        #region properties
+        /// <summary>
+        /// Input result value
+        /// </summary>
+        public string value { get; set; }
+
+        /// <summary>
+        /// Max input length
+        /// </summary>
+        public int MaxLength
+        {
+            get { return _maxLength; }
+            set
+            {
+                _maxLength = value;
+                ValueText.MaxLength = value;
+                PasswordText.MaxLength = value;
+            }
+        }
+        private int _maxLength;
+        /// <summary>
+        /// Display password box when the value is not empty
+        /// </summary>
+        public char? PasswordChar
+        {
+            get { return _passwordChar; }
+            set
+            {
+                _passwordChar = value;
+                if (value != null)
+                {
+                    PasswordText.Visibility = Visibility.Visible;
+                    ValueText.Visibility = Visibility.Hidden;
+                    PasswordText.PasswordChar = value.Value;//●
+                }
+                else
+                {
+                    PasswordText.Visibility = Visibility.Hidden;
+                    ValueText.Visibility = Visibility.Visible;
+                }
+            }
+        }
+        private char? _passwordChar;
+        #endregion;
+
         public InputBox()
         {
             InitializeComponent();
@@ -56,7 +100,10 @@ namespace MessageWindowWPF
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            value = ValueText.Text;
+            if (PasswordChar != null)
+                value = PasswordText.Password;
+            else
+                value = ValueText.Text;
             this.Close();
         }
 

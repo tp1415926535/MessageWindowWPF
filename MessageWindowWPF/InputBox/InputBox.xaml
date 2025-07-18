@@ -74,8 +74,9 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1">
-                    <TextBox x:Name="ValueText" Padding="3" Margin="20,10,10,20" Background="Transparent" Foreground="{DynamicResource WindowText}"/>
+                <Grid Grid.Row="1" Margin="20,10,10,20">
+                    <TextBox x:Name="ValueText" Padding="3"  Background="Transparent" Foreground="{DynamicResource WindowText}"/>
+                    <PasswordBox x:Name="PasswordText" Padding="3" Background="Transparent" Foreground="{DynamicResource WindowText}" Visibility="Hidden"/>
                 </Grid>
             </Grid>
         </Grid>
