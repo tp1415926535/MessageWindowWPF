@@ -92,7 +92,10 @@ namespace MessageWindowWPF
             if (!string.IsNullOrEmpty(message)) PromptText.Text = message;
             if (!string.IsNullOrEmpty(title)) this.Title = title;
             if (!string.IsNullOrEmpty(defaultValue)) ValueText.Text = defaultValue;
-            ValueText.Focus();
+            if (PasswordChar == null)
+                ValueText.Focus();
+            else
+                PasswordText.Focus();
             return base.ShowDialog();
         }
 
